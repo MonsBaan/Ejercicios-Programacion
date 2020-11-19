@@ -12,6 +12,7 @@ public class Ejercicio03 {
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Introduce un numero entre 0 y 999.999.999");
 		numT=sc.nextInt();
+		
 		if (numT<0 || numT>999999999) {
 			System.out.println("Valor no valido");
 		}else {
