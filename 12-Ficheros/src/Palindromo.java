@@ -9,6 +9,7 @@ public class Palindromo {
 	 */
 	public static void main(String[] args) {
 		String palindromo;
+		@SuppressWarnings("resource")
 		Scanner sc= new Scanner(System.in);
 		System.out.println("Introduce una frase: ");
 		palindromo=sc.nextLine();

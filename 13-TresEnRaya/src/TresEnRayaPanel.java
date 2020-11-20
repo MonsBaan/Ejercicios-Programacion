@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings({ "unused", "serial" })
 public class TresEnRayaPanel extends JFrame {
 
 	private JPanel contentPane;

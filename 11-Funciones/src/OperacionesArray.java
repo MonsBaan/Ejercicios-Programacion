@@ -20,6 +20,7 @@ public class OperacionesArray {
 	 * Insertar: Si el array no esta lleno desplaza una posicion a la derecha los elementos que estan a partir de esa posicion;
 	 */
 	public static final int TAMAÑO=10;
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		int contador = 0;
 		int[] array;
@@ -29,6 +30,7 @@ public class OperacionesArray {
 	}
 
 	public static void Menu(int[]a) {
+		@SuppressWarnings("resource")
 		Scanner sc=new Scanner(System.in);
 		int numTeclado=0;
 
@@ -74,6 +76,7 @@ public class OperacionesArray {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void LeerNumeros(int[]a) {
 		Scanner sc=new Scanner(System.in);
 		int numTeclado=1;		
@@ -102,6 +105,7 @@ public class OperacionesArray {
 		return contNum;
 	}
 
+	@SuppressWarnings("resource")
 	public static void ElimNum(int[]a) {
 		Scanner sc=new Scanner(System.in);
 		int numTeclado;
@@ -137,6 +141,7 @@ public class OperacionesArray {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void AnNum(int[]a) {
 		Scanner sc=new Scanner(System.in);
 		int numTeclado=0;
@@ -149,11 +154,13 @@ public class OperacionesArray {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static void AnNumPos(int[]a) {
 		if (ContNum(a)==TAMAÑO) {
 			System.out.println("\nLimite de valores alcanzado OPERACION NO VALIDA");
 		}else {
 			Scanner sc=new Scanner(System.in);
+			@SuppressWarnings("unused")
 			int numTeclado=0, numPosicion=0;
 			System.out.println("Introduce el valor que quieras añadir");
 			numTeclado=sc.nextInt();

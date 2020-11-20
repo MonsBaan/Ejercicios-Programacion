@@ -9,6 +9,7 @@ public class Perfecto {
 	 * PROGRAMA QUE MEDIANTE LLAMADAS A LA FUNCION ANTERIOR, MUESTRE LOS NUMEROS PERFECTOS QUE HAY ENTRE 1 Y 100.00
 	 */
 	public static void main(String[] args) {
+		@SuppressWarnings("resource")
 		Scanner sc=new Scanner(System.in);
 		int numT=0, cont=0;
 		

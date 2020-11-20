@@ -8,6 +8,7 @@ public class LeerFichero {
 	 */
 	public static void main(String[] args) {
 		int numChar = 0;
+		@SuppressWarnings("unused")
 		Scanner sc;
 		leerFich("fichero.txt", numChar);
 		System.out.println("\n\nEl fichero contiene " +numChar +" vocales");
