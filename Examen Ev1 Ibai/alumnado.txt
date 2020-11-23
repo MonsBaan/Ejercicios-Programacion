@@ -1,0 +1,22 @@
+IRATI
+4
+Bases de Datos
+Sistemas
+HTML
+FOL
+MIREN
+3
+Bases de Datos
+Sistemas
+HTML
+KOLDO
+2
+Bases de Datos
+Sistemas
+GUILLERMO
+5
+Bases de Datos
+Sistemas
+Entornos
+HTML
+FOL
