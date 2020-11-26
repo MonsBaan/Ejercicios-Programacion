@@ -12,8 +12,15 @@ import java.awt.GridLayout;
 import java.awt.FlowLayout;
 
 public class Xagu extends JFrame {
+	public static final int FILAS=10;
+	public static final int COLUMNAS=10;
 
 	private JPanel contentPane;
+	private JLabel [][] laberinto;
+	private JPanel panelLaberinto;
+	private JPanel panel;
+	private JButton btnNewButton;
+	private JButton btnNewButton_1;
 
 	/**
 	 * Launch the application.
@@ -42,22 +49,29 @@ public class Xagu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panelLaberinto = new JPanel();
+		panelLaberinto = new JPanel();
 		contentPane.add(panelLaberinto, BorderLayout.CENTER);
 		panelLaberinto.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		panelLaberinto.add(btnNewButton_1);
+		panel = new JPanel();
+		contentPane.add(panel, BorderLayout.SOUTH);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.SOUTH);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		btnNewButton = new JButton("New button");
+		panel.add(btnNewButton);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel_1.add(btnNewButton);
+		btnNewButton_1 = new JButton("New button");
+		panel.add(btnNewButton_1);
+	}
+	
+	public void crearGrid(){
+		//CREAR 100 LABELS EN EJECUCION AÑADIENDOLOS AL ARRAYLABERINTO Y AL PANELLABERINTO
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		panel_1.add(btnNewButton_2);
+		for (int i = 0; i < FILAS; i++) {
+			for (int j = 0; j < COLUMNAS; j++) {
+				
+			}
+		}
 	}
 
 }
