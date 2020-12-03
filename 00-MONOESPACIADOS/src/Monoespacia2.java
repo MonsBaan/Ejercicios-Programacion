@@ -750,8 +750,8 @@ public class Monoespacia2 extends JFrame {
 	private String tirarDado(boolean uso, int numeroHabilidad) {
 		String tirada;
 		int dado1, dado2;
-		dado1=(int) (Math.random()*7+1);
-		dado2=(int) (Math.random()*7+1);
+		dado1=(int) (Math.random()*6+1);
+		dado2=(int) (Math.random()*6+1);
 		tirada=Integer.toString(dado1+dado2+numeroHabilidad);
 		return tirada;
 
