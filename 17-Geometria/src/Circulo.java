@@ -67,6 +67,6 @@ public class Circulo {
 	
 	//METODO QUE DEVUELVE EN FORMA DE STRING EL RADIO Y LAS DOS COORDENADAS DEL CENTRO TODO CON DOS DECIMALES Y SEPARADOS POR ", "
 	public String toString() {
-		return("R= "+String.format("%2f", radio)+" X= "+String.format("%2F", centro.getX())+ " Y= "+String.format("%2F", centro.getY()));
+		return("R= "+String.format("%.2f", radio)+" X= "+String.format("%.2f", centro.getX())+ " Y= "+String.format("%.2f", centro.getY()));
 	}
 }
