@@ -152,6 +152,7 @@ public class Geometria extends JFrame {
 		textDistMax.setColumns(10);
 
 		btnCalcularDistMax = new JButton("Calcular");
+		btnCalcularDistMax.setEnabled(false);
 		btnCalcularDistMax.setBounds(519, 65, 89, 23);
 		contentPane.add(btnCalcularDistMax);
 
@@ -184,6 +185,10 @@ public class Geometria extends JFrame {
 				if (lstPuntos1.getSelectedIndex()!=-1 && lstCirculos.getSelectedIndex()!=-1) {
 					btnCalcularDistCirc.setEnabled(true);
 				} 
+				if (lstCirculos.getSelectedIndex()!=-1) {
+					btnCalcularDistMax.setEnabled(true);
+
+				}
 			}
 		});
 		btnCalcularDistancia.addActionListener(new ActionListener() {
@@ -214,7 +219,27 @@ public class Geometria extends JFrame {
 			//OBTIENE Y MUESTRA EN EL JTEXTFIELD LA DISTANCIA ENTRE EL CIRCULO SELECCIONADO Y EL PUNTO MAS LEJANO A ESE CIRCULO
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				Punto p;
+				Circulo c;
+				double dist, max;
+				max=0;
 				
+				c=arrayCirculos.get(lstCirculos.getSelectedIndex());
+				for (int i = 0; i < arrayPuntos1.size(); i++) {
+					p=arrayPuntos1.get(i);
+					dist=p.distancia(c.getCentro());
+					if (dist>max) {
+						max=dist;
+					}
+				}
+				for (int i = 0; i < arrayPuntos2.size(); i++) {
+					p=arrayPuntos2.get(i);
+					dist=p.distancia(c.getCentro());
+					if (dist>max) {
+						max=dist;
+					}
+				}
+				textDistMax.setText(String.format("%.2f", max));
 			}
 		});
 	}
