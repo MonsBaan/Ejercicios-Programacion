@@ -168,7 +168,6 @@ public class GestionCorreo extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				listCorreo
 			}
 		});
 
