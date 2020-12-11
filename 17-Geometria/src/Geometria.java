@@ -260,7 +260,6 @@ public class Geometria extends JFrame {
 			p=new Punto(r.nextDouble()*10, r.nextDouble()*8);
 			arrayPuntos1.add(p);
 			modelo1.addElement(p.getStr());
-
 			p=new Punto(r.nextDouble()*10, -r.nextDouble()*8);
 			arrayPuntos2.add(p);
 			modelo2.addElement(p.getStr());

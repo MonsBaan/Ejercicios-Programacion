@@ -1,13 +1,19 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -37,6 +43,8 @@ public class GestionCorreo extends JFrame {
 	private JButton btnCargar;
 	private JButton btnGuardar;
 	private JButton btnSalir;
+	private ArrayList<Persona> arrayPersonas;
+	private DefaultListModel<String> modelo1, modelo2, modelo3;
 
 	/**
 	 * Launch the application.
@@ -105,9 +113,10 @@ public class GestionCorreo extends JFrame {
 		listNombre = new JList();
 		scrollPaneNombre.setViewportView(listNombre);
 		listNombre.setBorder(null);
-		
 		lblNombreLista = new JLabel("Nombres");
 		scrollPaneNombre.setColumnHeaderView(lblNombreLista);
+		modelo1=new DefaultListModel<>();
+		listNombre.setModel(modelo1);
 		
 		scrollPaneCorreo = new JScrollPane();
 		scrollPaneCorreo.setBounds(205, 183, 135, 181);
@@ -119,6 +128,8 @@ public class GestionCorreo extends JFrame {
 		listCorreo = new JList();
 		scrollPaneCorreo.setViewportView(listCorreo);
 		listCorreo.setBorder(null);
+		modelo2=new DefaultListModel<>();
+		listCorreo.setModel(modelo2);
 		
 		scrollPaneWeb = new JScrollPane();
 		scrollPaneWeb.setBounds(375, 183, 135, 181);
@@ -130,6 +141,8 @@ public class GestionCorreo extends JFrame {
 		listWeb = new JList();
 		scrollPaneWeb.setViewportView(listWeb);
 		listWeb.setBorder(null);
+		modelo3=new DefaultListModel<>();
+		listWeb.setModel(modelo3);
 		
 		btnEnviar = new JButton("Enviar Mail");
 		btnEnviar.setBounds(520, 263, 95, 23);
@@ -146,6 +159,8 @@ public class GestionCorreo extends JFrame {
 		btnSalir = new JButton("Salir");
 		btnSalir.setBounds(503, 420, 89, 23);
 		contentPane.add(btnSalir);
+		
+		arrayPersonas=new ArrayList<Persona>();
 		
 		registrarEventos();
 	}
@@ -165,13 +180,65 @@ public class GestionCorreo extends JFrame {
 		});
 		
 		btnAñadir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Persona p;
+				p=new Persona(textNombre.getText(), textCorreo.getText(), textWeb.getText());
+				
+				if (p.esMailCorrecto(p.getMail())==true) {
+					arrayPersonas.add(p);
+					modelo1.addElement(p.getNombre());
+					modelo2.addElement(p.getMail());
+					modelo3.addElement(p.getWeb());
+					
+					textNombre.setText("");
+					textCorreo.setText("");
+					textWeb.setText("");
+					
+					textNombre.requestFocus();
+				}else {
+					JOptionPane.showMessageDialog(GestionCorreo.this, "CORREO NO VALIDO");
+					textCorreo.requestFocus();
+					textCorreo.selectAll();
+				}
+				//SI EL MAIL ES CORRECTO SE AÑADE A LA PERSONA A UN ARRAYLIST Y SUS DATOS A LOS JLIST
+
+			}
+		});
+		btnGuardar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				FileDialog dlgGuardar;
+				PrintWriter pw;
+				dlgGuardar=new FileDialog(GestionCorreo.this, "Guardar", FileDialog.SAVE);
+				dlgGuardar.setVisible(true);		
+				
+				try {
+					pw=new PrintWriter(new File(dlgGuardar.getDirectory()+dlgGuardar.getFile()));
+				
+				
+				for(Persona p:arrayPersonas) {
+					p.guardar(pw);
+				}
+				pw.close();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
-	}
+		
+		btnCargar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				FileDialog dlgCargar;
+				PrintWriter pw;
+			}
+		});
+	}//REGISTRAR EVENTOS ABAJO
 	
 	
 	

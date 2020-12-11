@@ -1,7 +1,7 @@
+import java.io.PrintWriter;
 
 public class Persona {
 	private String nombre, mail, web;
-
 	public Persona() {
 		//CONSTRUCTOR 1
 		nombre="";
@@ -49,10 +49,10 @@ public class Persona {
 		boolean antesArroba=false;
 		boolean despuesPunto=false;
 		boolean esPunto=false;
-
+			 
 		for (int i = 0; i < mail.length(); i++) {
 			if (mail.charAt(i)=='.') {		//SE DETECTA EL PUNTO
-				if (cont<3) {				//MENOS DE 3 LETRAS ENTRE @ Y PUNTO
+				if (cont<=3) {				//MENOS DE 3 LETRAS ENTRE @ Y PUNTO
 					entreArrobaPunto=true;
 				}else {
 					entreArrobaPunto=false;
@@ -89,11 +89,14 @@ public class Persona {
 		}else {
 			return true;
 		}
-
-	}
+		}
 	
-	public void guardar() {
-		
+	
+	public void guardar(PrintWriter pw) {
+		pw.println(this.nombre);
+		pw.println(this.mail);
+		pw.println(this.web);
+
 	}
 	public void cargar() {
 		
