@@ -7,44 +7,39 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.JScrollPane;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 
 public class GestionCorreo extends JFrame {
-	private JTextField textCorreo;
-	private JTextField textWeb;
+
 	private JPanel contentPane;
-	private JLabel lblNombre;
-	private JLabel lblCorreo;
-	private JLabel lblWeb;
-	private JTextField textNombre;
-	private JButton btnAñadir;
-	private JLabel lblNombreLista;
-	private JLabel lblCorreoLista;
-	private JLabel lblWebLista;
-	private JList listNombre;
-	private JList listCorreo;
-	private JList listWeb;
-	private JScrollPane scrollPaneNombre;
-	private JScrollPane scrollPaneCorreo;
-	private JScrollPane scrollPaneWeb;
-	private JButton btnEnviar;
+	private JTextField txtNombre;
+	private JTextField txtMail;
+	public JList getLstMails;
+	private JTextField txtWeb;
+	private JList lstNombres;
+	private JList lstMails;
+	private JList lstWebs;
 	private JButton btnCargar;
 	private JButton btnGuardar;
 	private JButton btnSalir;
+	private JButton btnAdd;
 	private ArrayList<Persona> arrayPersonas;
 	private DefaultListModel<String> modelo1, modelo2, modelo3;
+	private Correo correo;
+	private JButton btnEnviar;
 
 	/**
 	 * Launch the application.
@@ -66,181 +61,265 @@ public class GestionCorreo extends JFrame {
 	 * Create the frame.
 	 */
 	public GestionCorreo() {
-		setTitle("Gestion Correo");
-		setResizable(false);
+		setTitle("Gesti\u00F3n Correo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 646, 509);
+		setBounds(100, 100, 714, 574);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lblNombre = new JLabel("Nombre: ");
-		lblNombre.setBounds(39, 58, 69, 14);
-		contentPane.add(lblNombre);
+		JLabel lblNewLabel = new JLabel("Nombre:");
+		lblNewLabel.setBounds(55, 56, 46, 14);
+		contentPane.add(lblNewLabel);
 		
-		lblCorreo = new JLabel("Correo: ");
-		lblCorreo.setBounds(43, 83, 46, 14);
-		contentPane.add(lblCorreo);
+		JLabel lblNewLabel_1 = new JLabel("Correo:");
+		lblNewLabel_1.setBounds(55, 80, 46, 14);
+		contentPane.add(lblNewLabel_1);
 		
-		lblWeb = new JLabel("Web: ");
-		lblWeb.setBounds(53, 108, 46, 14);
-		contentPane.add(lblWeb);
+		JLabel lblNewLabel_2 = new JLabel("Web:");
+		lblNewLabel_2.setBounds(55, 105, 46, 14);
+		contentPane.add(lblNewLabel_2);
 		
-		textNombre = new JTextField();
-		textNombre.setBounds(99, 55, 202, 20);
-		contentPane.add(textNombre);
-		textNombre.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.setBounds(112, 53, 104, 20);
+		contentPane.add(txtNombre);
+		txtNombre.setColumns(10);
 		
-		textCorreo = new JTextField();
-		textCorreo.setBounds(99, 80, 202, 20);
-		contentPane.add(textCorreo);
-		textCorreo.setColumns(10);
+		txtMail = new JTextField();
+		txtMail.setBounds(111, 77, 187, 20);
+		contentPane.add(txtMail);
+		txtMail.setColumns(10);
 		
-		textWeb = new JTextField();
-		textWeb.setBounds(99, 105, 202, 20);
-		contentPane.add(textWeb);
-		textWeb.setColumns(10);
+		txtWeb = new JTextField();
+		txtWeb.setBounds(111, 102, 187, 20);
+		contentPane.add(txtWeb);
+		txtWeb.setColumns(10);
 		
-		btnAñadir = new JButton("A\u00F1adir");
-		btnAñadir.setBounds(346, 104, 89, 23);
-		contentPane.add(btnAñadir);
+		JLabel lblNewLabel_3 = new JLabel("Nombres:");
+		lblNewLabel_3.setBounds(55, 168, 46, 14);
+		contentPane.add(lblNewLabel_3);
 		
-		scrollPaneNombre = new JScrollPane();
-		scrollPaneNombre.setBounds(39, 183, 135, 181);
-		contentPane.add(scrollPaneNombre);
+		JLabel lblNewLabel_4 = new JLabel("Direcciones de Correo:");
+		lblNewLabel_4.setBounds(180, 168, 128, 14);
+		contentPane.add(lblNewLabel_4);
 		
-		listNombre = new JList();
-		scrollPaneNombre.setViewportView(listNombre);
-		listNombre.setBorder(null);
-		lblNombreLista = new JLabel("Nombres");
-		scrollPaneNombre.setColumnHeaderView(lblNombreLista);
+		JLabel lblNewLabel_5 = new JLabel("Direcciones Web");
+		lblNewLabel_5.setBounds(334, 168, 97, 14);
+		contentPane.add(lblNewLabel_5);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(55, 193, 104, 191);
+		contentPane.add(scrollPane);
+		
+		lstNombres = new JList();
+		scrollPane.setViewportView(lstNombres);
+		//MODELO ASOCIADO
 		modelo1=new DefaultListModel<>();
-		listNombre.setModel(modelo1);
+		lstNombres.setModel(modelo1);
 		
-		scrollPaneCorreo = new JScrollPane();
-		scrollPaneCorreo.setBounds(205, 183, 135, 181);
-		contentPane.add(scrollPaneCorreo);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(180, 193, 118, 191);
+		contentPane.add(scrollPane_1);
 		
-		lblCorreoLista = new JLabel("Direcciones de Correo");
-		scrollPaneCorreo.setColumnHeaderView(lblCorreoLista);
-		
-		listCorreo = new JList();
-		scrollPaneCorreo.setViewportView(listCorreo);
-		listCorreo.setBorder(null);
+		lstMails = new JList();
+		scrollPane_1.setViewportView(lstMails);
 		modelo2=new DefaultListModel<>();
-		listCorreo.setModel(modelo2);
+		lstMails.setModel(modelo2);
 		
-		scrollPaneWeb = new JScrollPane();
-		scrollPaneWeb.setBounds(375, 183, 135, 181);
-		contentPane.add(scrollPaneWeb);
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(334, 193, 141, 194);
+		contentPane.add(scrollPane_2);
 		
-		lblWebLista = new JLabel("Direcciones Web");
-		scrollPaneWeb.setColumnHeaderView(lblWebLista);
-		
-		listWeb = new JList();
-		scrollPaneWeb.setViewportView(listWeb);
-		listWeb.setBorder(null);
+		lstWebs = new JList();
+		scrollPane_2.setViewportView(lstWebs);
 		modelo3=new DefaultListModel<>();
-		listWeb.setModel(modelo3);
+		lstWebs.setModel(modelo3);
 		
-		btnEnviar = new JButton("Enviar Mail");
-		btnEnviar.setBounds(520, 263, 95, 23);
-		contentPane.add(btnEnviar);
+		btnAdd = new JButton("A\u00F1adir");
+		btnAdd.setBounds(334, 101, 89, 23);
+		contentPane.add(btnAdd);
 		
-		btnCargar = new JButton("Cargar Datos");
-		btnCargar.setBounds(89, 420, 126, 23);
+		btnCargar = new JButton("CargarDatos");
+		btnCargar.setBounds(65, 452, 112, 23);
 		contentPane.add(btnCargar);
 		
 		btnGuardar = new JButton("Guardar Datos");
-		btnGuardar.setBounds(225, 420, 127, 23);
+		btnGuardar.setBounds(242, 452, 128, 23);
 		contentPane.add(btnGuardar);
 		
 		btnSalir = new JButton("Salir");
-		btnSalir.setBounds(503, 420, 89, 23);
+		btnSalir.setBounds(498, 452, 89, 23);
 		contentPane.add(btnSalir);
 		
-		arrayPersonas=new ArrayList<Persona>();
+		btnEnviar = new JButton("Enviar Mail");
+		btnEnviar.setBounds(533, 244, 89, 23);
+		contentPane.add(btnEnviar);
 		
+		arrayPersonas=new ArrayList<Persona>();
 		registrarEventos();
+		
+	}//FIN DEL CONSTRUCTOR
+
+	public ArrayList<Persona> getArrayPersonas() {
+		return arrayPersonas;
+	}
+
+	public void setArrayPersonas(ArrayList<Persona> arrayPersonas) {
+		this.arrayPersonas = arrayPersonas;
 	}
 
 	private void registrarEventos() {
-		btnSalir.addActionListener(new ActionListener() {
+		btnAdd.addActionListener(new ActionListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (JOptionPane.showConfirmDialog(GestionCorreo.this,
+			public void actionPerformed(ActionEvent e) {
+				//Crear una persona con los datos de los JTextField
+				Persona p;
+				p=new Persona(txtNombre.getText(), txtMail.getText(), 
+								txtWeb.getText());
 
-						"¿Seguro que quieres salir?",
-						"Salir",
-						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					System.exit(0);
-				}				
+				//si NO es correcto, le doy el foco al TextField correo
+				//y seleccionamos el texto
+				if(!p.esMailCorrecto()) {
+					JOptionPane.showMessageDialog(GestionCorreo.this, 
+													p.getStrError());
+					txtMail.requestFocus();
+					txtMail.selectAll();
+				}else {//si el mail es correcto añado a la persona al ArrayList, los 
+					//datos de la persona a los JList
+					arrayPersonas.add(p);
+					modelo1.addElement(p.getNombre()+" ");
+					modelo2.addElement(p.getMail());
+					modelo3.addElement(p.getWeb()+" ");
+					//VACIAR LOS JTextField y dar el foco al nombre
+					txtNombre.setText("");
+					txtMail.setText("");
+					txtWeb.setText("");
+					txtNombre.requestFocus();
+				}
 			}
 		});
 		
-		btnAñadir.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Persona p;
-				p=new Persona(textNombre.getText(), textCorreo.getText(), textWeb.getText());
-				
-				if (p.esMailCorrecto(p.getMail())==true) {
-					arrayPersonas.add(p);
-					modelo1.addElement(p.getNombre());
-					modelo2.addElement(p.getMail());
-					modelo3.addElement(p.getWeb());
-					
-					textNombre.setText("");
-					textCorreo.setText("");
-					textWeb.setText("");
-					
-					textNombre.requestFocus();
-				}else {
-					JOptionPane.showMessageDialog(GestionCorreo.this, "CORREO NO VALIDO");
-					textCorreo.requestFocus();
-					textCorreo.selectAll();
-				}
-				//SI EL MAIL ES CORRECTO SE AÑADE A LA PERSONA A UN ARRAYLIST Y SUS DATOS A LOS JLIST
-
-			}
-		});
 		btnGuardar.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				FileDialog dlgGuardar;
 				PrintWriter pw;
-				dlgGuardar=new FileDialog(GestionCorreo.this, "Guardar", FileDialog.SAVE);
-				dlgGuardar.setVisible(true);		
-				
-				try {
-					pw=new PrintWriter(new File(dlgGuardar.getDirectory()+dlgGuardar.getFile()));
-				
-				
-				for(Persona p:arrayPersonas) {
-					p.guardar(pw);
+				//ELEGIR EL ARCHIVO (FileDialog)
+				dlgGuardar=new FileDialog(GestionCorreo.this, "Guardar", 
+											FileDialog.SAVE);
+				dlgGuardar.setVisible(true);
+				if(dlgGuardar.getFile()==null) {//PULSAR CANCELAR
+					return;
 				}
-				pw.close();
-				} catch (FileNotFoundException e) {
+				//ABRIR EL ARCHIVO PARA ESCRIBIR (PrintWriter)
+				try {
+					pw=new PrintWriter(new File(dlgGuardar.getDirectory()+
+												dlgGuardar.getFile()));
+					//recorrer el arrayList de personas y guardar cada persona
+					//en el archivo mediante una llamada a guardar de la clase
+					//Persona a la cual le pasamos el PrintWriter
+					for(Persona p:arrayPersonas) {
+						p.guardar(pw);
+					}
+					pw.close();
+				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					e1.printStackTrace();
 				}
 			}
 		});
-
 		
 		btnCargar.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
+				Scanner sc;
+				Persona p=new Persona();
+				//ELEGIR EL ARCHIVO (FileDialog)
 				FileDialog dlgCargar;
-				PrintWriter pw;
+				dlgCargar=new FileDialog(GestionCorreo.this, "Cargar", 
+											FileDialog.LOAD);
+				dlgCargar.setVisible(true);
+				if(dlgCargar.getFile()==null) {
+					return;
+				}
+				//ABRIR EL ARCHIVO (Scanner o Bufferedreader)
+				try {
+					sc=new Scanner(new File(dlgCargar.getDirectory()+
+											dlgCargar.getFile()));
+					//VACIAR LOS 3 Jlist Y EL ArrayList de Personas????
+					modelo1.clear();
+					modelo2.clear();
+					modelo3.clear();
+					arrayPersonas.clear();
+					//LEER TODOS LOS DATOS DEL ARCHIVO Y CARGARLOS EN:
+						//ARRAYLIST de personas
+						//CADA DATO EN SU JLIST
+					while(sc.hasNextLine()) {
+						p=p.cargar(sc);
+						arrayPersonas.add(p);
+						modelo1.addElement(p.getNombre());
+						modelo2.addElement(p.getMail());
+						modelo3.addElement(p.getWeb());
+					}
+					
+					
+					sc.close();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
-	}//REGISTRAR EVENTOS ABAJO
-	
-	
-	
+		
+		lstNombres.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				lstMails.setSelectedIndex(lstNombres.getSelectedIndex());
+				lstWebs.setSelectedIndex(lstNombres.getSelectedIndex());
+			}
+		});
+		
+		lstMails.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				lstNombres.setSelectedIndex(lstMails.getSelectedIndex());
+				lstWebs.setSelectedIndex(lstMails.getSelectedIndex());
+			}
+		});
+		
+		lstWebs.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override	
+			public void valueChanged(ListSelectionEvent e) {
+				lstNombres.setSelectedIndex(lstWebs.getSelectedIndex());
+				lstMails.setSelectedIndex(lstWebs.getSelectedIndex());
+			}
+		});
+		
+		btnEnviar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				correo=new Correo(GestionCorreo.this);
+				correo.setVisible(true);
+				GestionCorreo.this.setVisible(false);
+				if(!lstMails.isSelectionEmpty()) {
+					correo.getTxtPara().setText((String)lstMails.getSelectedValue());
+				}
+			}
+		});
+		
+	}//FIN DE REGISTRAR EVENTOS
 	
 }
+
+
+
+

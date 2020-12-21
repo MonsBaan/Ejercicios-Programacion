@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>00-MONOESPACIADOS</name>
+	<name>20-Socios</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -14,10 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<variableList>
-		<variable>
-			<name>images</name>
-			<value>file:/C:/Users/Dam1-Ibai/github/Ejercicios-Programacion/00-MONOESPACIADOS/images</value>
-		</variable>
-	</variableList>
 </projectDescription>

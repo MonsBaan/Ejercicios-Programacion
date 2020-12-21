@@ -1,22 +1,25 @@
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Persona {
+	//DATOS
 	private String nombre, mail, web;
+	private String strError;
+	
+	//CONSTRUCTORES
 	public Persona() {
-		//CONSTRUCTOR 1
 		nombre="";
 		mail="";
 		web="";
 	}
-
+	
 	public Persona(String nombre, String mail, String web) {
-		//CONSTRUCTOR 2
 		this.nombre=nombre;
 		this.mail=mail;
 		this.web=web;
 	}
 
-	//GETTER Y SETTERS
+	//GETTERS Y SETTERS
 	public String getNombre() {
 		return nombre;
 	}
@@ -40,66 +43,79 @@ public class Persona {
 	public void setWeb(String web) {
 		this.web = web;
 	}
+	
+	public String getStrError() {
+		return strError;
+	}
 
-	public boolean esMailCorrecto(String mail) {
-		int contArroba=0;
-		int cont=0;
-		boolean entreArrobaPunto=false;
-		boolean espacio=false;
-		boolean antesArroba=false;
-		boolean despuesPunto=false;
-		boolean esPunto=false;
-			 
-		for (int i = 0; i < mail.length(); i++) {
-			if (mail.charAt(i)=='.') {		//SE DETECTA EL PUNTO
-				if (cont<=3) {				//MENOS DE 3 LETRAS ENTRE @ Y PUNTO
-					entreArrobaPunto=true;
-				}else {
-					entreArrobaPunto=false;
-				}
-				esPunto=true;
-				cont=0;
+	public void setStrError(String strError) {
+		this.strError = strError;
+	}
+
+	//MÉTODOS
+	public boolean esMailCorrecto() {
+		int contArrobas=0;
+		for(int i=0;i<mail.length();i++) {
+			if(mail.charAt(i)=='@') {
+				contArrobas++;
 			}
-			
-			if (esPunto) {					//CUENTA NUMEROS DESPUES DEL PUNTO
-				if (cont<2) {
-					despuesPunto=true;
-				}else if (cont>2) {
-					despuesPunto=false;
-				}
-				cont++;
-			}
-			if (mail.charAt(i)=='@') {		//SI LA ARROBA NO TIENE 3 CARACTERES POR DETRAS
-				if (cont<3) {
-					antesArroba=true;
-				}else if (cont>3) {
-					antesArroba=false;
-				}
-				cont=0;
-				contArroba++;				//CUENTA ARROBAS
-			}
-			if (mail.charAt(i)==' ') {		//SI EL EMAIL TIENE UN ESPACIO
-				espacio=true;
-			}
-			cont++;
 		}
-
-		if (contArroba==0 || contArroba>1 || espacio==true || antesArroba==true || despuesPunto==true || entreArrobaPunto==true) {
+		if(contArrobas>1 || contArrobas==0) {
+			strError="Solo puede haber una arroba";
 			return false;
-		}else {
-			return true;
 		}
+		//No hay al menos dos caracteres antes de la arroba
+		if(mail.indexOf("@")<3) {
+			strError="Antes de la arroba debe haber al menos 3 caracteres";
+			return false;
 		}
-	
-	
+		
+		//Hay algún espacio
+		if(mail.contains(" ")) {
+			strError="El mail no puede contener espacios";
+			return false;
+		}
+		//Entre la @ y el último punto hay menos de 3 caracteres
+		if(mail.indexOf("@")>=mail.lastIndexOf(".")-3) {
+			strError="Entre la @ y el último punto debe haber al menos 3 caracteres";
+			return false;
+		}
+		//Menos de dos caracteres después del último punto
+		if(mail.lastIndexOf('.')>=mail.length()-2) {
+			strError="la extensión del dominio debe tener al menos 2 caracteres";
+			return false;
+		}
+			
+		
+		return true;
+	}
+
 	public void guardar(PrintWriter pw) {
 		pw.println(this.nombre);
 		pw.println(this.mail);
 		pw.println(this.web);
-
 	}
-	public void cargar() {
-		
+	
+	public Persona cargar(Scanner sc) {
+		/*Persona p=new Persona(String.valueOf(sc.nextLine()),
+				String.valueOf(sc.nextLine()),
+				String.valueOf(sc.nextLine()));
+		return p;*/
+		Persona p;
+		String nombre, mail, web;
+		nombre=sc.nextLine();
+		mail=sc.nextLine();
+		web=sc.nextLine();
+		p=new Persona(nombre, mail, web);
+		return p;
 	}
-
 }
+
+
+
+
+
+
+
+
+
