@@ -40,6 +40,7 @@ public class Socios extends JFrame {
 	private int accion;
 	private JButton btnCancelar;
 	private JButton btnModificar;
+	private JButton btnEliminar;
 
 	/**
 	 * Launch the application.
@@ -62,96 +63,100 @@ public class Socios extends JFrame {
 	 */
 	public Socios() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 554, 445);
+		setBounds(100, 100, 460, 337);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		lblNumSocio = new JLabel("NumSocio:");
-		lblNumSocio.setBounds(23, 66, 68, 14);
+		lblNumSocio.setBounds(23, 14, 68, 14);
 		contentPane.add(lblNumSocio);
 
 		lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(23, 102, 68, 14);
+		lblNombre.setBounds(23, 50, 68, 14);
 		contentPane.add(lblNombre);
 
 		lblDireccion = new JLabel("Direcci\u00F3n:");
-		lblDireccion.setBounds(23, 138, 68, 14);
+		lblDireccion.setBounds(23, 86, 68, 14);
 		contentPane.add(lblDireccion);
 
 		lblTelefono = new JLabel("Telefono:");
-		lblTelefono.setBounds(23, 177, 68, 14);
+		lblTelefono.setBounds(23, 125, 68, 14);
 		contentPane.add(lblTelefono);
 
 		btnPrim = new JButton("<<");
-		btnPrim.setBounds(65, 372, 68, 23);
+		btnPrim.setBounds(23, 264, 68, 23);
 		contentPane.add(btnPrim);
 
 		txtNumSocio = new JTextField();
 		txtNumSocio.setEditable(false);
-		txtNumSocio.setBounds(101, 63, 172, 20);
+		txtNumSocio.setBounds(101, 11, 172, 20);
 		contentPane.add(txtNumSocio);
 		txtNumSocio.setColumns(10);
 
 		txtNombre = new JTextField();
 		txtNombre.setEditable(false);
-		txtNombre.setBounds(101, 99, 172, 20);
+		txtNombre.setBounds(101, 47, 172, 20);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		txtDir = new JTextField();
 		txtDir.setEditable(false);
-		txtDir.setBounds(101, 135, 172, 20);
+		txtDir.setBounds(101, 83, 172, 20);
 		contentPane.add(txtDir);
 		txtDir.setColumns(10);
 
 		txtTlf = new JTextField();
 		txtTlf.setEditable(false);
-		txtTlf.setBounds(101, 174, 172, 20);
+		txtTlf.setBounds(101, 122, 172, 20);
 		contentPane.add(txtTlf);
 		txtTlf.setColumns(10);
 
 		btnAnt = new JButton("<");
-		btnAnt.setBounds(143, 372, 68, 23);
+		btnAnt.setBounds(101, 264, 68, 23);
 		contentPane.add(btnAnt);
 
 		btnSig = new JButton(">");
-		btnSig.setBounds(315, 372, 68, 23);
+		btnSig.setBounds(273, 264, 68, 23);
 		contentPane.add(btnSig);
 
 		btnUlt = new JButton(">>");
-		btnUlt.setBounds(393, 372, 68, 23);
+		btnUlt.setBounds(351, 264, 68, 23);
 		contentPane.add(btnUlt);
 
 		txtRegistro = new JTextField();
 		txtRegistro.setEditable(false);
 		txtRegistro.setHorizontalAlignment(SwingConstants.CENTER);
-		txtRegistro.setBounds(221, 373, 86, 20);
+		txtRegistro.setBounds(179, 265, 86, 20);
 		contentPane.add(txtRegistro);
 		txtRegistro.setColumns(10);
 
 		btnSalir = new JButton("Salir");
-		btnSalir.setBounds(460, 11, 68, 23);
+		btnSalir.setBounds(351, 11, 68, 23);
 		contentPane.add(btnSalir);
-		
+
 		btnNuevoSocio = new JButton("Nuevo Socio");
-		btnNuevoSocio.setBounds(23, 11, 110, 23);
+		btnNuevoSocio.setBounds(23, 230, 110, 23);
 		contentPane.add(btnNuevoSocio);
-		
+
 		btnModificar = new JButton("Modificar Socio");
-		btnModificar.setBounds(150, 11, 123, 23);
+		btnModificar.setBounds(165, 230, 123, 23);
 		contentPane.add(btnModificar);
-		
+
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setEnabled(false);
-		btnCancelar.setBounds(279, 338, 104, 23);
+		btnCancelar.setBounds(250, 196, 104, 23);
 		contentPane.add(btnCancelar);
-		
+
 		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setEnabled(false);
-		btnConfirmar.setBounds(143, 338, 104, 23);
+		btnConfirmar.setBounds(93, 197, 104, 23);
 		contentPane.add(btnConfirmar);
+
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(315, 230, 104, 23);
+		contentPane.add(btnEliminar);
 
 		inicializar();
 		registrarEventos();
@@ -192,9 +197,9 @@ public class Socios extends JFrame {
 				}
 			}
 		});
-		
+
 		btnSig.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -210,9 +215,9 @@ public class Socios extends JFrame {
 				}
 			}
 		});
-		
+
 		btnAnt.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -228,13 +233,14 @@ public class Socios extends JFrame {
 				}				
 			}
 		});
-		
+
 		btnPrim.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					rs.first();
+					txtRegistro.setText(rs.getRow()+"");
 					mostrarDatos();
 
 				} catch (SQLException e) {
@@ -243,13 +249,14 @@ public class Socios extends JFrame {
 				}
 			}
 		});
-		
+
 		btnUlt.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					rs.last();
+					txtRegistro.setText(rs.getRow()+"");
 					mostrarDatos();
 
 				} catch (SQLException e) {
@@ -258,15 +265,15 @@ public class Socios extends JFrame {
 				}
 			}
 		});
-		
+
 		txtRegistro.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {	
 				int reg;
 				try {
 					reg=Integer.parseInt(txtRegistro.getText());
-					
+
 					if (reg>numReg || reg<=0) {
 						mostrarDatos();
 					}else {
@@ -281,49 +288,148 @@ public class Socios extends JFrame {
 				}
 			}
 		});
-		
+
 		btnNuevoSocio.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//EDITAR JTEXTFIELD, VACIARLOS, FOCO AL NOMBRE, NUMERO SOCIO (max +1), ACTIVAR OK y CANCELAR
-				txtNumSocio.setEditable(true);
-				txtNombre.setEditable(true);
-				txtDir.setEditable(true);
-				txtTlf.setEditable(true);
-				btnConfirmar.setEnabled(true);
-				btnCancelar.setEnabled(true);
-				
+				estadoTextDatos(true);
+
+				txtNumSocio.setText(bd.obtenerMaxNumSocio()+1+"");
 				txtNombre.setText("");
 				txtDir.setText("");
 				txtTlf.setText("");
-				
-				txtNombre.requestFocus();
-				
-				btnNuevoSocio.setEnabled(false);
-				btnModificar.setEnabled(false);
-				
-				txtNumSocio.setText(bd.obtenerMaxNumSocio()+1+"");
+
+				txtNombre.requestFocus();	
+
+				accion=ADD;
 			}
 		});
-		
-		btnCancelar.addActionListener(new ActionListener() {
-			
+
+		btnModificar.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				btnNuevoSocio.setEnabled(true);
-				btnModificar.setEnabled(true);
-				
-				txtNumSocio.setEditable(false);
-				txtNombre.setEditable(false);
-				txtDir.setEditable(false);
-				txtTlf.setEditable(false);
-				btnConfirmar.setEnabled(false);
-				btnCancelar.setEnabled(false);
-				
+				estadoTextDatos(true);
+				txtNombre.requestFocus();
+
+				accion=EDIT;
 			}
 		});
+
+		btnCancelar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				estadoTextDatos(false);
+				mostrarDatos();
+
+			}
+		});
+
+		btnConfirmar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int regAct = 0;
+				//COMPROBAR QUE LOS DATOS OBLIGATORIOS ESTEN RELLENOS "*"
+				//SI ESTA VACIO -> JOPTIONPANE Y RETURN
+				if (txtNombre.getText().isBlank() || txtNombre.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(Socios.this, "Faltan datos obligatorios");
+					return;
+				}
+
+				try {
+					regAct=rs.getRow();//GUARDAR REGISTRO ACTUAL
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				switch (accion) {
+				case ADD:
+					if (bd.añadir(txtNombre.getText(), txtDir.getText(), txtTlf.getText())==0) {
+						JOptionPane.showMessageDialog(Socios.this, "Error al Añadir Datos");
+					}
+					estadoTextDatos(false);
+					rs=bd.obtenerDatos();//RECUPERAR DATOS DE LA BDD
+					try {
+						rs.absolute(regAct);
+						txtRegistro.setText(rs.getRow()+"");
+						mostrarDatos();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+
+				case EDIT:							
+
+					if (bd.editar(txtNombre.getText(), txtDir.getText(), txtTlf.getText(), txtNumSocio.getText())==0) {
+						JOptionPane.showMessageDialog(Socios.this, "Error al Editar Datos");
+					}
+					estadoTextDatos(false);
+					rs=bd.obtenerDatos();//RECUPERAR DATOS DE LA BDD
+					try {
+						rs.absolute(regAct);
+						txtRegistro.setText(rs.getRow()+"");
+						mostrarDatos();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					break;
+
+				}
+			}
+		});
+		btnEliminar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(JOptionPane.showConfirmDialog(Socios.this, 
+						"Seguro que quieres borrar este usuario?",
+						"Eliminar Usuario",
+						JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
+					bd.eliminar(txtNumSocio.getText());
+					estadoTextDatos(false);
+					rs=bd.obtenerDatos();//RECUPERAR DATOS DE LA BDD
+					try {
+						rs.last();
+						txtRegistro.setText(rs.getRow()+"");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					mostrarDatos();
+				}
+			}
+			
+		});
 	}//FIN DE REGISTRAR EVENTOS
+
+	private void estadoTextDatos(boolean estado) {
+		//DATOS
+		txtNombre.setEditable(estado);
+		txtDir.setEditable(estado);
+		txtTlf.setEditable(estado);
+		btnConfirmar.setEnabled(estado);
+		btnCancelar.setEnabled(estado);
+
+		//SELECTOR DATOS
+		btnAnt.setEnabled(!estado);
+		btnPrim.setEnabled(!estado);
+		btnSig.setEnabled(!estado);
+		btnUlt.setEnabled(!estado);
+
+		//BOTONES NUEVO/MODIFICAR SOCIO
+		btnNuevoSocio.setEnabled(!estado);
+		btnModificar.setEnabled(!estado);
+		btnEliminar.setEnabled(!estado);
+
+	}
 
 	private void mostrarDatos() {
 		try {
@@ -331,27 +437,8 @@ public class Socios extends JFrame {
 			txtNombre.setText(rs.getString("nombre"));
 			txtDir.setText(rs.getString("direccion"));
 			txtTlf.setText(rs.getString("telefono"));
-			
-			try {//MUESTRA EL PRIMER VALOR DE LA BASE DE DATOS
-				if (rs.first()) {
-					rs.last();
-					numReg=rs.getRow();
-					numReg=0;
-					rs.first();
-					mostrarDatos();
-
-
-					txtRegistro.setText(rs.getRow()+"");
-
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-
-	
 }
