@@ -10,6 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JSplitPane;
 import java.awt.GridLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class Ahorcado extends JFrame {
 	private TecladoVirtual teclado;
@@ -42,32 +47,34 @@ public class Ahorcado extends JFrame {
 	public Ahorcado() {
 		setTitle("El Ahorcado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 550);
+		setBounds(100, 100, 1230, 620);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		lblTitulo = new JLabel("El Ahorcado");
-		lblTitulo.setFont(new Font("Rockwell Condensed", Font.BOLD | Font.ITALIC, 26));
+		lblTitulo.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 24));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblTitulo, BorderLayout.NORTH);
 		
 		btnSiguientePalabra = new JButton("Siguiente Palabra");
-		btnSiguientePalabra.setFont(new Font("Rockwell Condensed", Font.BOLD | Font.ITALIC, 16));
+		btnSiguientePalabra.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 16));
 		contentPane.add(btnSiguientePalabra, BorderLayout.SOUTH);
 		
 		panelJuego = new JPanel();
 		contentPane.add(panelJuego, BorderLayout.CENTER);
-		panelJuego.setLayout(new GridLayout(1, 0, 0, 0));
+		panelJuego.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		panel1 = new JPanel();
-		panelJuego.add(panel1);
+		teclado = new TecladoVirtual();
+		panelJuego.add(teclado);
+		teclado.setLayout(null);
 		
 		panel2 = new JPanel();
 		panelJuego.add(panel2);
+		panel2.setLayout(new GridLayout(2, 0, 0, 0));
 		
-		teclado = new TecladoVirtual();
+
 	}
 
 }
