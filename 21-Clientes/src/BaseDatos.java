@@ -88,7 +88,6 @@ public class BaseDatos {
 			return 0;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return 1;
 		}
 	}	
@@ -127,7 +126,6 @@ public class BaseDatos {
 			return 1;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return 0;
 		}
 	}

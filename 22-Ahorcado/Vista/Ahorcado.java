@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -7,24 +8,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import javax.swing.JSplitPane;
 import java.awt.GridLayout;
 import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.Component;
-import javax.swing.Box;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 public class Ahorcado extends JFrame {
+	private Fichero fichero;
 	private TecladoVirtual teclado;
-	private JPanel contentPane;
-	private JLabel lblTitulo;
 	private JButton btnSiguientePalabra;
 	private JPanel panelJuego;
-	private JPanel panel1;
 	private JPanel panel2;
-
+	private EventosAhorcado eventosAhorcado;
+	private AreaDibujo areaDibujo;
+	private JPanel contentPane;
+	private JLabel lblTitulo;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -59,6 +56,8 @@ public class Ahorcado extends JFrame {
 		contentPane.add(lblTitulo, BorderLayout.NORTH);
 		
 		btnSiguientePalabra = new JButton("Siguiente Palabra");
+		btnSiguientePalabra.setFocusable(false);
+		btnSiguientePalabra.setEnabled(false);
 		btnSiguientePalabra.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 16));
 		contentPane.add(btnSiguientePalabra, BorderLayout.SOUTH);
 		
@@ -66,15 +65,59 @@ public class Ahorcado extends JFrame {
 		contentPane.add(panelJuego, BorderLayout.CENTER);
 		panelJuego.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		teclado = new TecladoVirtual();
+		teclado = new TecladoVirtual(this);
 		panelJuego.add(teclado);
-		teclado.setLayout(null);
-		
-		panel2 = new JPanel();
-		panelJuego.add(panel2);
-		panel2.setLayout(new GridLayout(2, 0, 0, 0));
-		
 
+		
+		areaDibujo = new AreaDibujo();
+		panelJuego.add(areaDibujo);
+		areaDibujo.setBackground(Color.blue);
+		
+		fichero=new Fichero();		
+		teclado.setPalabra(fichero.obtenerPalabra());
+		teclado.ponerGuiones();
+		
+		eventosAhorcado = new EventosAhorcado(this, teclado);
+	}
+
+	public EventosAhorcado getEventosAhorcado() {
+		return eventosAhorcado;
+	}
+
+	public void setEventosAhorcado(EventosAhorcado eventosAhorcado) {
+		this.eventosAhorcado = eventosAhorcado;
+	}
+
+	public AreaDibujo getAreaDibujo() {
+		return areaDibujo;
+	}
+
+	public void setAreaDibujo(AreaDibujo areaDibujo) {
+		this.areaDibujo = areaDibujo;
+	}
+
+	public TecladoVirtual getTeclado() {
+		return teclado;
+	}
+
+	public void setTeclado(TecladoVirtual teclado) {
+		this.teclado = teclado;
+	}
+
+	public JButton getBtnSiguientePalabra() {
+		return btnSiguientePalabra;
+	}
+
+	public void setBtnSiguientePalabra(JButton btnSiguientePalabra) {
+		this.btnSiguientePalabra = btnSiguientePalabra;
+	}
+
+	public Fichero getFichero() {
+		return fichero;
+	}
+
+	public void setFichero(Fichero fichero) {
+		this.fichero = fichero;
 	}
 
 }

@@ -90,25 +90,12 @@ public class Altas extends JPanel {
 		gbc_lblClave.gridy = 0;
 		panelClientes.add(lblClave, gbc_lblClave);
 
-		
-		
-		
-		
-		
-		
 		txtClave = new JTextField();
 		GridBagConstraints gbc_txtClave = new GridBagConstraints();
 		gbc_txtClave.fill = GridBagConstraints.BOTH;
 		gbc_txtClave.gridx = 1;
 		gbc_txtClave.gridy = 0;
 		panelClientes.add(txtClave, gbc_txtClave);
-
-		
-		
-		
-		
-		
-		
 		
 		panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Datos Personales:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -181,6 +168,7 @@ public class Altas extends JPanel {
 				bd.obtenerDatos();
 				txtClave.requestFocus();	
 				txtClave.setToolTipText("Numero de Usuarios Actuales: "+bd.obtenerMaxNumSocio()+"");
+				txtClave.setText(bd.obtenerMaxNumSocio()+1+"");
 
 			}
 
