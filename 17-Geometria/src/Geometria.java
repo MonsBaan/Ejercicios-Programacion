@@ -79,7 +79,6 @@ public class Geometria extends JFrame {
 		contentPane.add(scrollPane2);
 
 		lstPuntos1 = new JList();
-
 		scrollPane2.setViewportView(lstPuntos1);
 		modelo1=new DefaultListModel<String>();
 		lstPuntos1.setModel(modelo1);
