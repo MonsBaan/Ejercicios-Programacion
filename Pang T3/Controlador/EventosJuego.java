@@ -8,7 +8,8 @@ import javax.swing.Timer;
 public class EventosJuego {
 	private ZonaJuego zonaJuego;
 	private int[] arrayTeclas; //0 - Disparar, 1 - Izquierda, 2 - Derecha, 3 - Arriba, 4 - Abajo
-	private Timer timer;
+	private boolean disparo;
+	private Timer timerPersonaje, timerDisparo;
 	
 	public EventosJuego(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
@@ -19,8 +20,8 @@ public class EventosJuego {
 			i = 0;
 		}
 		
-		//TIMER Y CONTROL DE EVENTOS EN EJECUCION
-		timer = new Timer(25, new ActionListener() {
+		//TIMER PERSONAJE
+		timerPersonaje = new Timer(25, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -36,7 +37,24 @@ public class EventosJuego {
 				}
 			}
 		});
-		timer.start();
+		timerPersonaje.start();
+		
+		//TIMER DISPARO
+		timerDisparo = new Timer(1, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (disparo) {
+					zonaJuego.getDisparo().movimiento();
+					zonaJuego.repaint();
+				}
+				if (zonaJuego.getDisparo().getPosY() == 0) {
+					disparo = false;
+					zonaJuego.getDisparo().setPosY(zonaJuego.getHeight());
+				}
+			}
+		});
+		timerDisparo.start();
 		
 		zonaJuego.addKeyListener(new KeyListener() {
 			
@@ -48,15 +66,20 @@ public class EventosJuego {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				zonaJuego.repaint();
-				zonaJuego.getJugador().setEstado(0);
-
+								
+				if (arrayTeclas[0]!=1) {
+					arrayTeclas[1]=0;
+					arrayTeclas[2]=0;
+					arrayTeclas[3]=0;
+					arrayTeclas[4]=0;
+					zonaJuego.repaint();
+					zonaJuego.getJugador().setEstado(0);
+				}
 				arrayTeclas[0]=0;
-				arrayTeclas[1]=0;
-				arrayTeclas[2]=0;
-				arrayTeclas[3]=0;
-				arrayTeclas[4]=0;
+
+					
 				
+					
 			}
 			
 			@Override
@@ -85,13 +108,17 @@ public class EventosJuego {
 					break;
 					
 				case KeyEvent.VK_SPACE:
-					
+					arrayTeclas[0]=1;
+					if (!disparo) {
+						disparo = true;
+						zonaJuego.getDisparo().setPosX(zonaJuego.getJugador().getPosX()+45);
+					}
 
 					break;
 
 				default:
 					break;
-				}				
+				}
 			}
 		});
 	}

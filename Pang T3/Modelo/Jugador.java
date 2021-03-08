@@ -11,28 +11,32 @@ import javax.swing.ImageIcon;
  * ESCALERA
  */
 public class Jugador {
-	private static final int SUELO = 400;
+	private static final int SUELO = 390;
 	//DATOS
 	private Image[] imgD;
 	private Image[] imgI;
 	private Image imgDIdle, imgIIdle;
 	private int estado, imgActual;
-	private int posX, posY, alto, ancho, dirH;
+	private int posX, posY, alto, ancho, dirH, velocidad;
+	private boolean pared;
 	
 	private ZonaJuego zonaJuego;
 	
 	public Jugador(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
 		//CARGAR IMAGENES
-		imgD = new Image [8];
-		imgI = new Image [8];
+		imgD = new Image [9];
+		imgI = new Image [9];
 		imgActual = 0;
-		alto = 50;
-		ancho = 63;
+		
+		//VALORES
+		alto = 70;
+		ancho = 90;
 		posX = 97;
 		posY = SUELO;
 		estado = 0; //0- SIN MOVIMIENTO, 1- MOVIENDOSE
 		dirH = 1; //-1 IZQUIERDA, 1 DERECHA
+		velocidad = 8;
 		
 		//CARGAR IMAGENES DE MOVIMIENTO
 		for (int i = 0; i < imgD.length; i++) {
@@ -58,9 +62,20 @@ public class Jugador {
 			break;
 		case 1: //CON MOVIMIENTO
 			if (dirH == 1) {
-				g.drawImage(imgD[imgActual], posX, posY, ancho, alto, null);
+				if (pared) {
+					g.drawImage(imgDIdle, posX, posY, ancho, alto, null);
+				}else {
+					g.drawImage(imgD[imgActual], posX, posY, ancho, alto, null);
+
+				}
 			}else if (dirH == -1) {
-				g.drawImage(imgI[imgActual], posX, posY, ancho, alto, null);
+				if (pared) {
+					g.drawImage(imgIIdle, posX, posY, ancho, alto, null);
+
+				}else {
+					g.drawImage(imgI[imgActual], posX, posY, ancho, alto, null);
+
+				}
 
 			}
 			break;
@@ -74,19 +89,20 @@ public class Jugador {
 	
 	public void mover() {
 		if (posX+ancho >= zonaJuego.getWidth()-1) {
+			pared = true;
 			if (dirH == -1) {
-				posX += 5*dirH;
-				//ANIMACION
-				imgActual=(imgActual+1)%imgD.length;
+				posX += velocidad*dirH;
+
 			}
 		}else if (posX <= 2) {
+			pared = true;
+
 			if (dirH == 1) {
-				posX += 5*dirH;
-				//ANIMACION
-				imgActual=(imgActual+1)%imgD.length;
+				posX += velocidad*dirH;
 			}
 		}else {
-			posX += 5*dirH;
+			pared = false;
+			posX += velocidad*dirH;
 			//ANIMACION
 			imgActual=(imgActual+1)%imgD.length;
 		}

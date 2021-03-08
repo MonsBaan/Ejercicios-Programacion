@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.Toolkit;
 
 public class MainJuego extends JFrame {
 
@@ -30,6 +31,7 @@ public class MainJuego extends JFrame {
 	 * Create the frame.
 	 */
 	public MainJuego() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainJuego.class.getResource("/Enemigos/Bola1.png")));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 515);

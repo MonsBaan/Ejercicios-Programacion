@@ -16,14 +16,15 @@ public class ZonaJuego extends Canvas {
 	//CONSTRUCTORES
 	public ZonaJuego(){
 		//CARGAR FONDO
-		
-		//CARGAR JUGADOR
-		fondo = new ImageIcon(getClass().getResource("montaña.jpg")).getImage();
-		
+		//fondo = new ImageIcon(getClass().getResource("montaña.jpg")).getImage();
+
+		//CARGAR JUGADOR Y DISPARO
 		jugador = new Jugador(this);
+		disparo = new Disparo(this);
 		
-		eventosJuego = new EventosJuego(this);
 		//CARGAR EVENTOS
+		eventosJuego = new EventosJuego(this);
+
 		
 	}
 	
@@ -31,8 +32,9 @@ public class ZonaJuego extends Canvas {
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paint(g);
-		g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
+		//g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
 		jugador.dibujar(g);
+		disparo.dibujar(g);
 	}
 	public void update(Graphics g) {
 		//DOBLE BUFFER
@@ -83,5 +85,13 @@ public class ZonaJuego extends Canvas {
 
 	public void setPantallaVirtual(Graphics pantallaVirtual) {
 		this.pantallaVirtual = pantallaVirtual;
+	}
+
+	public Disparo getDisparo() {
+		return disparo;
+	}
+
+	public void setDisparo(Disparo disparo) {
+		this.disparo = disparo;
 	}
 }
