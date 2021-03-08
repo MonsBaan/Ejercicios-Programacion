@@ -1,0 +1,6 @@
+/*
+ * SUBE DESDE LA ALTURA DEL JUGADOR HASTA EL MAXIMO, LUEGO DESAPARECE
+ */
+public class Disparo {
+
+}
