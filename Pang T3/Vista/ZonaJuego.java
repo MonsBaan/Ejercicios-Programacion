@@ -31,7 +31,7 @@ public class ZonaJuego extends Canvas {
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paint(g);
-		//g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
+		g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
 		jugador.dibujar(g);
 	}
 	public void update(Graphics g) {

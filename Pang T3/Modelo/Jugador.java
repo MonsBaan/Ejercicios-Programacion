@@ -32,7 +32,7 @@ public class Jugador {
 		posX = 97;
 		posY = SUELO;
 		estado = 0; //0- SIN MOVIMIENTO, 1- MOVIENDOSE
-		dirH = 1;
+		dirH = 1; //-1 IZQUIERDA, 1 DERECHA
 		
 		//CARGAR IMAGENES DE MOVIMIENTO
 		for (int i = 0; i < imgD.length; i++) {
@@ -73,9 +73,24 @@ public class Jugador {
 	}
 	
 	public void mover() {
-		posX += 10*dirH;
-		//ANIMACION
-		imgActual=(imgActual+1)%imgD.length;
+		if (posX+ancho >= zonaJuego.getWidth()-1) {
+			if (dirH == -1) {
+				posX += 5*dirH;
+				//ANIMACION
+				imgActual=(imgActual+1)%imgD.length;
+			}
+		}else if (posX <= 2) {
+			if (dirH == 1) {
+				posX += 5*dirH;
+				//ANIMACION
+				imgActual=(imgActual+1)%imgD.length;
+			}
+		}else {
+			posX += 5*dirH;
+			//ANIMACION
+			imgActual=(imgActual+1)%imgD.length;
+		}
+
 	}
 
 	

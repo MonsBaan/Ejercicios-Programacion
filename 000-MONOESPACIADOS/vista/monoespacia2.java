@@ -1,10 +1,12 @@
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,7 +24,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 @SuppressWarnings("serial")
-public class Monoespacia2 extends JFrame {
+public class monoespacia2 extends JFrame {
 
 	private JPanel contentPane;
 	private JComboBox<String> clasesBox;
@@ -55,12 +57,12 @@ public class Monoespacia2 extends JFrame {
 	private JSpinner contVida;
 	private JLabel lblMonoImagen;
 	@SuppressWarnings("unused")
-	private ImageIcon MonoIcono = new ImageIcon("images\\MonkeyIcono.png");
-	private ImageIcon MonoExpl = new ImageIcon("images\\MonoExpl.png");
-	private ImageIcon MonoInge = new ImageIcon("images\\MonoInge.png");
-	private ImageIcon MonoMedic = new ImageIcon("images\\MonoMedic.png");
-	private ImageIcon MonoPil = new ImageIcon("images\\MonoPil.png");
-	private ImageIcon MonoSol = new ImageIcon("images\\MonoSol.png");
+	private Image MonoIcono = new ImageIcon(getClass().getResource("MonkeyIcono.png")).getImage();
+	private Image MonoExpl = new ImageIcon(getClass().getResource("MonoExpl.png")).getImage();
+	private Image MonoInge = new ImageIcon(getClass().getResource("MonoInge.png")).getImage();
+	private Image MonoMedic = new ImageIcon(getClass().getResource("MonoMedic.png")).getImage();
+	private Image MonoPil = new ImageIcon(getClass().getResource("MonoPil.png")).getImage();
+	private Image MonoSol = new ImageIcon(getClass().getResource("MonoSol.png")).getImage();
 	private JLabel lblVida;
 	private JSpinner contUsos;
 	private ButtonGroup seleccionTirada;
@@ -83,7 +85,7 @@ public class Monoespacia2 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Monoespacia2 frame = new Monoespacia2();
+					monoespacia2 frame = new monoespacia2();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -97,7 +99,7 @@ public class Monoespacia2 extends JFrame {
 	 * Create the frame.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Monoespacia2() {
+	public monoespacia2() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("images\\MonkeyIcono.png"));
 		setTitle("M O N O E S P A C I A D O S");
 		seleccionTirada = new ButtonGroup();
@@ -363,7 +365,7 @@ public class Monoespacia2 extends JFrame {
 					lblUsos.setEnabled(true);
 
 
-					lblMonoImagen.setIcon(MonoExpl);
+					lblMonoImagen.setIcon((Icon) MonoExpl);
 
 					lblUsos.setText("PrimateDrone");
 					lblConstitucionNum.setText("2");
@@ -407,7 +409,7 @@ public class Monoespacia2 extends JFrame {
 					contUsos.setValue(3);
 					lblUsos.setEnabled(true);
 
-					lblMonoImagen.setIcon(MonoInge);
+					lblMonoImagen.setIcon((Icon) MonoInge);
 
 					lblUsos.setText("SimiHerramienta");
 					lblConstitucionNum.setText("2");
@@ -451,7 +453,7 @@ public class Monoespacia2 extends JFrame {
 					contUsos.setValue(3);
 					lblUsos.setEnabled(true);
 
-					lblMonoImagen.setIcon(MonoMedic);
+					lblMonoImagen.setIcon((Icon) MonoMedic);
 
 					lblUsos.setText("MonoAuxilios");
 					lblConstitucionNum.setText("1");
@@ -495,7 +497,7 @@ public class Monoespacia2 extends JFrame {
 					contUsos.setValue(3);
 					lblUsos.setEnabled(true);
 
-					lblMonoImagen.setIcon(MonoPil);
+					lblMonoImagen.setIcon((Icon) MonoPil);
 
 					lblUsos.setText("Monolograma");
 					lblConstitucionNum.setText("1");
@@ -540,7 +542,7 @@ public class Monoespacia2 extends JFrame {
 					contUsos.setValue(3);
 					lblUsos.setEnabled(true);
 
-					lblMonoImagen.setIcon(MonoSol);
+					lblMonoImagen.setIcon((Icon) MonoSol);
 
 					lblUsos.setText("MonoPistola");
 					lblConstitucionNum.setText("3");

@@ -20,7 +20,7 @@ public class EventosJuego {
 		}
 		
 		//TIMER Y CONTROL DE EVENTOS EN EJECUCION
-		timer = new Timer(40, new ActionListener() {
+		timer = new Timer(25, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -67,8 +67,18 @@ public class EventosJuego {
 					arrayTeclas[1]=1;
 					arrayTeclas[2]=0;
 					break;
+				case KeyEvent.VK_LEFT:
+					zonaJuego.getJugador().setEstado(1);
+					arrayTeclas[1]=1;
+					arrayTeclas[2]=0;
+					break;
 					
 				case KeyEvent.VK_D:
+					zonaJuego.getJugador().setEstado(1);
+					arrayTeclas[1]=0;
+					arrayTeclas[2]=1;
+					break;
+				case KeyEvent.VK_RIGHT:
 					zonaJuego.getJugador().setEstado(1);
 					arrayTeclas[1]=0;
 					arrayTeclas[2]=1;
