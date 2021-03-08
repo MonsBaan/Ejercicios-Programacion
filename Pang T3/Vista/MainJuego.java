@@ -31,6 +31,7 @@ public class MainJuego extends JFrame {
 	 * Create the frame.
 	 */
 	public MainJuego() {
+		setTitle("Bob&Balls");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainJuego.class.getResource("/Enemigos/Bola1.png")));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
