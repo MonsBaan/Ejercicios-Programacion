@@ -1,6 +1,7 @@
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -8,6 +9,7 @@ public class ZonaJuego extends Canvas {
 	//DATOS
 	private Image fondo;
 	private Caballo caballo;
+	private ArrayList<Jinete> arrayJinetes;
 	private EventosZonaJuego eventosZonaJuego;
 	private Image buffer;
 	private Graphics pantVirtual;
@@ -15,9 +17,17 @@ public class ZonaJuego extends Canvas {
 	public ZonaJuego() {
 		//CARGAR FONDO
 		fondo = new ImageIcon(getClass().getResource("montaña2.jpg")).getImage();
-		caballo = new Caballo(this);
-		eventosZonaJuego = new EventosZonaJuego(this);
+
 		//CARGAR CABALLO
+		caballo = new Caballo(this);
+		caballo.start();
+		
+		//DIMENSIONAR JINETES
+		arrayJinetes = new ArrayList<Jinete>();
+		
+		
+		eventosZonaJuego = new EventosZonaJuego(this);
+
 	}
 	@Override
 	public void paint(Graphics g) {
@@ -28,6 +38,10 @@ public class ZonaJuego extends Canvas {
 		g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
 		//CABALLO
 		caballo.dibujar(g);
+		//JINETES
+		for (Jinete jinete : arrayJinetes) {
+			jinete.dibujar(g);
+		}
 	}
 	public void update (Graphics g) {
 		//DOBLE BUFFER

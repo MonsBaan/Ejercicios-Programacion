@@ -8,12 +8,13 @@ import javax.swing.Timer;
 public class EventosZonaJuego {
 	private ZonaJuego zonaJuego;
 	private int[] arrayTeclas;//0- Izquierda, 1- Derecha, 2- Salto
+	private int contador = 0;
 	private Timer reloj;
 
 
 	public EventosZonaJuego(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
-		arrayTeclas=new int [4];
+		arrayTeclas=new int [3];
 		
 		for (int i = 0; i < arrayTeclas.length; i++) {
 			arrayTeclas[i]=0;
@@ -34,6 +35,13 @@ public class EventosZonaJuego {
 					zonaJuego.getCaballo().mover();
 					zonaJuego.repaint();
 				}
+				
+				contador++;
+				if (contador%10 ==0) {
+					//CREAR JINETE
+					
+				}
+
 			}
 		});
 		reloj.start();
@@ -52,29 +60,13 @@ public class EventosZonaJuego {
 				zonaJuego.repaint();
 				arrayTeclas[0]=0;
 				arrayTeclas[1]=0;
+				arrayTeclas[2]=0;
 
 			}
 			
 			
 			@Override
 			public void keyPressed(KeyEvent e) {				
-				/*ANTIGUO SISTEMA DE MOVIMIENTO
-				 * switch (e.getKeyCode()) {
-				case KeyEvent.VK_A:
-					zonaJuego.getCaballo().setDirH(-1);
-					zonaJuego.getCaballo().mover();
-					zonaJuego.repaint();
-				break;
-				
-				case KeyEvent.VK_D:
-					zonaJuego.getCaballo().setDirH(1);
-					zonaJuego.getCaballo().mover();
-					zonaJuego.repaint();
-				break;
-				
-				default:
-					break;
-				}*/
 				
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_A:
@@ -85,6 +77,14 @@ public class EventosZonaJuego {
 				case KeyEvent.VK_D:
 					arrayTeclas[0]=0;
 					arrayTeclas[1]=1;
+					break;
+					
+				case KeyEvent.VK_SPACE:
+					arrayTeclas[2]=1;
+					if (zonaJuego.getCaballo().getEstado() == Caballo.PARADO) {
+						zonaJuego.getCaballo().setEstado(Caballo.SUBIENDO);
+
+					}
 					break;
 
 				default:

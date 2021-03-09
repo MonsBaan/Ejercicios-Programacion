@@ -48,7 +48,7 @@ public class EventosJuego {
 					zonaJuego.getDisparo().movimiento();
 					zonaJuego.repaint();
 				}
-				if (zonaJuego.getDisparo().getPosY() == 0) {
+				if (zonaJuego.getDisparo().getPosY() <= 0) {
 					disparo = false;
 					zonaJuego.getDisparo().setPosY(zonaJuego.getHeight());
 				}

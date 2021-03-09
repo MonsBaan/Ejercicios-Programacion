@@ -6,10 +6,10 @@ import javax.swing.ImageIcon;
 /* CORRER HACIA DERECHA E IZQUIERDA -> CON ANIMACION
  * SALTAR
  */
-public class Caballo {
+public class Caballo extends Thread{
 	public static final int PARADO = 1;
-	public static final int SUBIENDO = 1;
-	public static final int BAJANDO = 1;
+	public static final int SUBIENDO = 2;
+	public static final int BAJANDO = 3;
 	public static final int SUELO = 425;
 	
 	//DATOS
@@ -37,6 +37,40 @@ public class Caballo {
 		for (int i = 0; i < imgD.length; i++) {
 			imgI[i]= new ImageIcon(getClass().getResource("CaballoI"+(i+1)+".png")).getImage();
 			imgD[i]= new ImageIcon(getClass().getResource("CaballoD"+(i+1)+".png")).getImage();
+		}
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		super.run();
+		while(true) {
+
+			if (estado == SUBIENDO) {
+				posY = posY - 5;
+				posX = posX + 5 * dirH;
+				zonaJuego.repaint();
+				if (posY <= SUELO - 50) {
+					estado = BAJANDO;
+				}
+			}
+			if (estado == BAJANDO) {
+				posY = posY + 5;
+				posX = posX +5 *dirH;
+				zonaJuego.repaint();
+
+				if (posY >= SUELO) {
+					estado = PARADO;
+					posY = SUELO;
+				}
+			}
+
+			try {
+				Thread.sleep(40);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

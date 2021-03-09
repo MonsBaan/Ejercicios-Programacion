@@ -20,7 +20,7 @@ public class Disparo {
 		posY = zonaJuego.getHeight();
 		alto = 770;
 		ancho = 10;
-		velocidad = 1;
+		velocidad = 5;
 		intersectado = false;
 	}
 	public void dibujar(Graphics g) {
