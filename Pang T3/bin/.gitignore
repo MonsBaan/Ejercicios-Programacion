@@ -1,15 +1,15 @@
 /Bob/
 /Disparo.class
-/EventosJuego$1.class
-/EventosJuego$2.class
-/EventosJuego.class
+/Disparo/
+/Enemigo.class
+/Enemigos/
+/Icono Pong.png
 /Jugador.class
 /MainJuego$1.class
 /MainJuego.class
-/ZonaJuego.class
 /montaña.jpg
-/Enemigos/
-/Icono Pong.png
-/Enemigo.class
-/Disparo/
+/EventosJuego$1.class
+/EventosJuego$2.class
 /EventosJuego$3.class
+/EventosJuego.class
+/ZonaJuego.class

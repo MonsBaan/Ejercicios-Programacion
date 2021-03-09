@@ -9,7 +9,7 @@ public class EventosJuego {
 	private ZonaJuego zonaJuego;
 	private int[] arrayTeclas; //0 - Disparar, 1 - Izquierda, 2 - Derecha, 3 - Arriba, 4 - Abajo
 	private boolean disparo;
-	private Timer timerPersonaje, timerDisparo;
+	private Timer timerPersonaje;
 	
 	public EventosJuego(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
@@ -39,23 +39,6 @@ public class EventosJuego {
 		});
 		timerPersonaje.start();
 		
-		//TIMER DISPARO
-		timerDisparo = new Timer(1, new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (disparo) {
-					zonaJuego.getDisparo().movimiento();
-					zonaJuego.repaint();
-				}
-				if (zonaJuego.getDisparo().getPosY() <= 0) {
-					disparo = false;
-					zonaJuego.getDisparo().setPosY(zonaJuego.getHeight());
-				}
-			}
-		});
-		timerDisparo.start();
-		
 		zonaJuego.addKeyListener(new KeyListener() {
 			
 			@Override
@@ -75,9 +58,8 @@ public class EventosJuego {
 					zonaJuego.repaint();
 					zonaJuego.getJugador().setEstado(0);
 				}
-				arrayTeclas[0]=0;
+					arrayTeclas[0]=0;
 
-					
 				
 					
 			}
@@ -108,11 +90,11 @@ public class EventosJuego {
 					break;
 					
 				case KeyEvent.VK_SPACE:
-					arrayTeclas[0]=1;
-					if (!disparo) {
-						disparo = true;
+					if (!zonaJuego.getDisparo().isDisparo() || arrayTeclas[0] != 1) {
 						zonaJuego.getDisparo().setPosX(zonaJuego.getJugador().getPosX()+45);
+						zonaJuego.getDisparo().setDisparo(true);
 					}
+					arrayTeclas[0]=1;
 
 					break;
 
@@ -121,6 +103,18 @@ public class EventosJuego {
 				}
 			}
 		});
+		
+
 	}
+
+	
+	
+	
+	//GETTERS Y SETTERS
+
+
+
+
+
 
 }

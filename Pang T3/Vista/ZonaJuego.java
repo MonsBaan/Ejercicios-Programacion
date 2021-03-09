@@ -9,6 +9,7 @@ public class ZonaJuego extends Canvas {
 	private Image fondo;
 	private Jugador jugador;
 	private Disparo disparo;
+	private Enemigo enemigo;
 	private EventosJuego eventosJuego;
 	private Image buffer;
 	private Graphics pantallaVirtual;
@@ -21,7 +22,12 @@ public class ZonaJuego extends Canvas {
 		//CARGAR JUGADOR Y DISPARO
 		jugador = new Jugador(this);
 		disparo = new Disparo(this);
+		disparo.start();
 		
+		//CARGAR ENEMIGOS
+		enemigo = new Enemigo(this);
+		enemigo.start();
+
 		//CARGAR EVENTOS
 		eventosJuego = new EventosJuego(this);
 
@@ -35,6 +41,8 @@ public class ZonaJuego extends Canvas {
 		//g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
 		jugador.dibujar(g);
 		disparo.dibujar(g);
+		enemigo.dibujar(g);
+
 	}
 	public void update(Graphics g) {
 		//DOBLE BUFFER

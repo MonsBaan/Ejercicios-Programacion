@@ -6,40 +6,60 @@ import javax.swing.ImageIcon;
 /*
  * SUBE DESDE LA ALTURA DEL JUGADOR HASTA EL MAXIMO, LUEGO DESAPARECE
  */
-public class Disparo {
+public class Disparo extends Thread {
 	private ZonaJuego zonaJuego;
 	private Image imgDisparo;
 	private int posX, posY, alto, ancho, velocidad;
-	private boolean intersectado;
+	private boolean intersectado, disparo;
 
 	public Disparo(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
 		//CARGAR IMAGEN
 		imgDisparo = new ImageIcon(getClass().getResource("Disparo/Disparo.png")).getImage();
 		posX = 0;
-		posY = zonaJuego.getHeight();
+		posY = zonaJuego.getJugador().getPosY()+100;
 		alto = 770;
 		ancho = 10;
 		velocidad = 5;
 		intersectado = false;
+		disparo = false;
 	}
 	public void dibujar(Graphics g) {
 		g.drawImage(imgDisparo, posX, posY, ancho, alto, null);
 
 	}
-	public void movimiento() {
-		if (posY <= 0) {
-			posY = zonaJuego.getHeight();
-		}else {
-			posY -= velocidad;
+	
+	
+	@Override
+	public void run() {
+		super.run();
+		while (true) { 	//SI SE DISPARA, LA BALA SE MUEVE HASTA ARRIBA
+
+			if (disparo) {
+				if (posY <= 0 || intersectado == true) {
+					posY = zonaJuego.getHeight();
+					disparo = false;
+
+				}else {
+					posY -= velocidad;
+
+				}
+			zonaJuego.repaint();	
+			}
+			
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	
 	
 	
-	
-	
+
 	//GETTERS Y SETTERS
 	public ZonaJuego getZonaJuego() {
 		return zonaJuego;
@@ -89,5 +109,10 @@ public class Disparo {
 	public void setIntersectado(boolean intersectado) {
 		this.intersectado = intersectado;
 	}
-
+	public boolean isDisparo() {
+		return disparo;
+	}
+	public void setDisparo(boolean disparo) {
+		this.disparo = disparo;
+	}
 }
