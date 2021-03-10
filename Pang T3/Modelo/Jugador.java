@@ -36,7 +36,7 @@ public class Jugador {
 		posY = SUELO;
 		estado = 0; //0- SIN MOVIMIENTO, 1- MOVIENDOSE
 		dirH = 1; //-1 IZQUIERDA, 1 DERECHA
-		velocidad = 9;
+		velocidad = 5;
 		
 		//CARGAR IMAGENES DE MOVIMIENTO
 		for (int i = 0; i < imgD.length; i++) {
@@ -48,6 +48,7 @@ public class Jugador {
 		imgIIdle = new ImageIcon(getClass().getResource("Bob/I0.png")).getImage();
 
 	}
+	
 	
 	public void dibujar(Graphics g) {
 		switch (estado) {

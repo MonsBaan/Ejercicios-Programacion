@@ -102,4 +102,12 @@ public class ZonaJuego extends Canvas {
 	public void setDisparo(Disparo disparo) {
 		this.disparo = disparo;
 	}
+
+	public Enemigo getEnemigo() {
+		return enemigo;
+	}
+
+	public void setEnemigo(Enemigo enemigo) {
+		this.enemigo = enemigo;
+	}
 }

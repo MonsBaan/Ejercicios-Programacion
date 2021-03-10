@@ -2,6 +2,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+
 public class Jinete extends Thread {
 	
 	private Image imagen;
@@ -11,6 +13,9 @@ public class Jinete extends Thread {
 	public Jinete(ZonaJuego zonaJuego) {
 		Random r = new Random();
 		this.zonaJuego = zonaJuego;
+		
+		imagen = new ImageIcon(getClass().getResource("Bola1.png")).getImage();
+
 		alto = 90;
 		ancho = 60;
 		posX = r.nextInt(670);

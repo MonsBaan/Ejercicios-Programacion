@@ -9,6 +9,7 @@ public class EventosJuego {
 	private ZonaJuego zonaJuego;
 	private int[] arrayTeclas; //0 - Disparar, 1 - Izquierda, 2 - Derecha, 3 - Arriba, 4 - Abajo
 	private boolean disparo;
+
 	private Timer timerPersonaje;
 	
 	public EventosJuego(ZonaJuego zonaJuego) {
@@ -49,7 +50,6 @@ public class EventosJuego {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-								
 				if (arrayTeclas[0]!=1) {
 					arrayTeclas[1]=0;
 					arrayTeclas[2]=0;
@@ -59,9 +59,6 @@ public class EventosJuego {
 					zonaJuego.getJugador().setEstado(0);
 				}
 					arrayTeclas[0]=0;
-
-				
-					
 			}
 			
 			@Override
@@ -90,7 +87,7 @@ public class EventosJuego {
 					break;
 					
 				case KeyEvent.VK_SPACE:
-					if (!zonaJuego.getDisparo().isDisparo() || arrayTeclas[0] != 1) {
+					if (!zonaJuego.getDisparo().isDisparo()) {
 						zonaJuego.getDisparo().setPosX(zonaJuego.getJugador().getPosX()+45);
 						zonaJuego.getDisparo().setDisparo(true);
 					}
@@ -104,6 +101,10 @@ public class EventosJuego {
 			}
 		});
 		
+		
+		if (zonaJuego.getDisparo().getRect().intersects(zonaJuego.getEnemigo().getRect())) {
+			System.out.println("OWO");
+		}
 
 	}
 

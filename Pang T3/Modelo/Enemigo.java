@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
@@ -42,7 +43,7 @@ public class Enemigo extends Thread{
 				
 			if (rebote <= 0) {
 				if (posY+alto >= zonaJuego.getHeight()) {
-					rebote = 55;
+					rebote = 50;
 				}
 
 			}
@@ -64,4 +65,90 @@ public class Enemigo extends Thread{
 
 	}
 
+	
+	
+	//GETTERS Y SETTERS
+	public Image getImgEnemigo() {
+		return imgEnemigo;
+	}
+
+	public void setImgEnemigo(Image imgEnemigo) {
+		this.imgEnemigo = imgEnemigo;
+	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getAlto() {
+		return alto;
+	}
+
+	public void setAlto(int alto) {
+		this.alto = alto;
+	}
+
+	public int getAncho() {
+		return ancho;
+	}
+
+	public void setAncho(int ancho) {
+		this.ancho = ancho;
+	}
+
+	public int getVelocidad() {
+		return velocidad;
+	}
+
+	public void setVelocidad(int velocidad) {
+		this.velocidad = velocidad;
+	}
+
+	public int getDirH() {
+		return dirH;
+	}
+
+	public void setDirH(int dirH) {
+		this.dirH = dirH;
+	}
+
+	public int getDirY() {
+		return dirY;
+	}
+
+	public void setDirY(int dirY) {
+		this.dirY = dirY;
+	}
+
+	public double getRebote() {
+		return rebote;
+	}
+
+	public void setRebote(double rebote) {
+		this.rebote = rebote;
+	}
+
+	public double getPosY() {
+		return posY;
+	}
+
+	public void setPosY(double posY) {
+		this.posY = posY;
+	}
+
+	public boolean isIntersectado() {
+		return intersectado;
+	}
+
+	public void setIntersectado(boolean intersectado) {
+		this.intersectado = intersectado;
+	}
+	public Rectangle getRect() {
+		return new Rectangle(posX, (int) posY, ancho, alto);
+		
+	}
 }

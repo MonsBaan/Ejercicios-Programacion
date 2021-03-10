@@ -28,19 +28,22 @@ public class EventosZonaJuego {
 				if(arrayTeclas[0]==1) {
 					zonaJuego.getCaballo().setDirH(-1);
 					zonaJuego.getCaballo().mover();
-					zonaJuego.repaint();
 				}
 				if (arrayTeclas[1]==1) {
 					zonaJuego.getCaballo().setDirH(1);
 					zonaJuego.getCaballo().mover();
-					zonaJuego.repaint();
 				}
 				
 				contador++;
-				if (contador%10 ==0) {
+				if (contador%10 == 0) {
 					//CREAR JINETE
+					Jinete jinete;
+					jinete = new Jinete(zonaJuego);
+					jinete.start();
+					zonaJuego.getArrayJinetes().add(jinete);
 					
 				}
+				zonaJuego.repaint();
 
 			}
 		});

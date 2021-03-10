@@ -68,4 +68,10 @@ public class ZonaJuego extends Canvas {
 	public void setEventosZonaJuego(EventosZonaJuego eventosZonaJuego) {
 		this.eventosZonaJuego = eventosZonaJuego;
 	}
+	public ArrayList<Jinete> getArrayJinetes() {
+		return arrayJinetes;
+	}
+	public void setArrayJinetes(ArrayList<Jinete> arrayJinetes) {
+		this.arrayJinetes = arrayJinetes;
+	}
 }
