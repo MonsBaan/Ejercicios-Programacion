@@ -4,26 +4,41 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.Timer;
 
 public class EventosJuego {
 	private ZonaJuego zonaJuego;
 	private int[] arrayTeclas; //0 - Disparar, 1 - Izquierda, 2 - Derecha, 3 - Arriba, 4 - Abajo
-	private ArrayList<Enemigo> arrayEnemigo1;
-	private ArrayList<Enemigo> arrayEnemigo2;
-	private ArrayList<Enemigo> arrayEnemigo3;
+	private int nivel, num;
+
 	private Timer timerPersonaje;
 	
 	public EventosJuego(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
+		Random r = new Random();
 		
 		//ARRAY TECLAS Y INICIALIZACION
 		arrayTeclas = new int[5];
 		for (int i : arrayTeclas) {
 			i = 0;
 		}
-		
+		nivel = 5;
+		for (int i = 0; i < nivel; i++) {
+			Enemigo bola;
+			bola = new Enemigo(zonaJuego);
+			zonaJuego.getArrayEnemigo1().add(bola);
+			
+			num = r.nextInt(2);
+			if (num == 1) {
+				bola.setDirH(-1);
+			}else if (num == 0) {
+				bola.setDirH(1);
+			}
+			bola.start();
+		}
+
 		
 		//TIMER PERSONAJE
 		timerPersonaje = new Timer(20, new ActionListener() {
@@ -38,6 +53,9 @@ public class EventosJuego {
 					zonaJuego.getJugador().setDirH(1);
 					zonaJuego.getJugador().mover();
 				}
+				
+				
+				checkColision();
 				zonaJuego.repaint();
 
 			}
@@ -92,6 +110,7 @@ public class EventosJuego {
 					
 				case KeyEvent.VK_SPACE:
 					if (!zonaJuego.getDisparo().isDisparo()) {
+						zonaJuego.getDisparo().setIntersectado(false);
 						zonaJuego.getDisparo().setPosX(zonaJuego.getJugador().getPosX()+45);
 						zonaJuego.getDisparo().setDisparo(true);
 					}
@@ -107,13 +126,54 @@ public class EventosJuego {
 		
 
 
+	}
+	
+	public void checkColision() {
+		Rectangle disparo = zonaJuego.getDisparo().getBounds();
+		
+		for (int i = 0; i < zonaJuego.getArrayEnemigo1().size(); i++) {
+			Rectangle bola = zonaJuego.getArrayEnemigo1().get(i).getBounds();
+			if (disparo.intersects(bola)) { //EN CASO DE SER INTERCEPTADO, LA BALA SE PONE A TRUE Y LA BOLA DESAPARECE
+				zonaJuego.getDisparo().setIntersectado(true);
+				zonaJuego.getArrayEnemigo1().remove(i);
+				
+				for (int j = 0; j < 2; j++) {
+					Enemigo bola2;
+					bola2 = new Enemigo(zonaJuego);
+					bola2.setTipo(2);
+					zonaJuego.getArrayEnemigo1().add(bola2);
+					bola2.start();
+				}
+
+			}
+		}
+		
+		for (int i = 0; i < zonaJuego.getArrayEnemigo2().size(); i++) {
+			Rectangle bola = zonaJuego.getArrayEnemigo2().get(i).getBounds();
+			if (disparo.intersects(bola)) { //EN CASO DE SER INTERCEPTADO, LA BALA SE PONE A TRUE Y LA BOLA DESAPARECE
+				zonaJuego.getDisparo().setIntersectado(true);
+				zonaJuego.getArrayEnemigo2().remove(i);
+
+			}
+		}
+		
+		for (int i = 0; i < zonaJuego.getArrayEnemigo3().size(); i++) {
+			Rectangle bola = zonaJuego.getArrayEnemigo3().get(i).getBounds();
+			if (disparo.intersects(bola)) { //EN CASO DE SER INTERCEPTADO, LA BALA SE PONE A TRUE Y LA BOLA DESAPARECE
+				zonaJuego.getDisparo().setIntersectado(true);
+				zonaJuego.getArrayEnemigo3().remove(i);
+
+			}
+		}
+		
+
+		
+
 
 	}
-
 	
 	
 	
-	//GETTERS Y SETTERS
 
 
 

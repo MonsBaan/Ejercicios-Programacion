@@ -1,6 +1,7 @@
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -13,6 +14,9 @@ public class ZonaJuego extends Canvas {
 	private EventosJuego eventosJuego;
 	private Image buffer;
 	private Graphics pantallaVirtual;
+	private ArrayList<Enemigo> arrayEnemigo1;
+	private ArrayList<Enemigo> arrayEnemigo2;
+	private ArrayList<Enemigo> arrayEnemigo3;
 	
 	//CONSTRUCTORES
 	public ZonaJuego(){
@@ -25,23 +29,39 @@ public class ZonaJuego extends Canvas {
 		disparo.start();
 		
 		//CARGAR ENEMIGOS
-		enemigo = new Enemigo(this);
-		enemigo.start();
+		arrayEnemigo1 = new ArrayList<Enemigo>();
+		arrayEnemigo2 = new ArrayList<Enemigo>();
+		arrayEnemigo3 = new ArrayList<Enemigo>();
+
 
 		//CARGAR EVENTOS
 		eventosJuego = new EventosJuego(this);
-
-		
 	}
 	
 	//PAINT Y DOBLE BUFFER
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
 		super.paint(g);
 		//g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
 		jugador.dibujar(g);
 		disparo.dibujar(g);
-		enemigo.dibujar(g);
+
+
+		if (arrayEnemigo1.size()!=0) {
+			for (Enemigo enemigo : arrayEnemigo1) {
+				enemigo.dibujar(g);
+			}
+		}
+		if (arrayEnemigo2.size()!=0) {
+			for (Enemigo enemigo : arrayEnemigo2) {
+				enemigo.dibujar(g);
+			}
+		}
+		if (arrayEnemigo3.size()!=0) {
+			for (Enemigo enemigo : arrayEnemigo3) {
+				enemigo.dibujar(g);
+			}
+		}
+
 
 	}
 	public void update(Graphics g) {
@@ -109,5 +129,29 @@ public class ZonaJuego extends Canvas {
 
 	public void setEnemigo(Enemigo enemigo) {
 		this.enemigo = enemigo;
+	}
+
+	public ArrayList<Enemigo> getArrayEnemigo1() {
+		return arrayEnemigo1;
+	}
+
+	public void setArrayEnemigo1(ArrayList<Enemigo> arrayEnemigo1) {
+		this.arrayEnemigo1 = arrayEnemigo1;
+	}
+
+	public ArrayList<Enemigo> getArrayEnemigo2() {
+		return arrayEnemigo2;
+	}
+
+	public void setArrayEnemigo2(ArrayList<Enemigo> arrayEnemigo2) {
+		this.arrayEnemigo2 = arrayEnemigo2;
+	}
+
+	public ArrayList<Enemigo> getArrayEnemigo3() {
+		return arrayEnemigo3;
+	}
+
+	public void setArrayEnemigo3(ArrayList<Enemigo> arrayEnemigo3) {
+		this.arrayEnemigo3 = arrayEnemigo3;
 	}
 }

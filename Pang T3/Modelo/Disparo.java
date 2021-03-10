@@ -116,7 +116,10 @@ public class Disparo extends Thread {
 		this.disparo = disparo;
 	}
 
-	
+	public Rectangle getBounds() {
+		return new Rectangle(posX, posY, ancho, alto);
+		
+	}
 
 
 	

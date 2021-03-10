@@ -9,24 +9,51 @@ import javax.swing.ImageIcon;
 public class Enemigo extends Thread{
 
 	private ZonaJuego zonaJuego;
-	private Image imgEnemigo;
+	private Image imgBola1;
+	private Image imgBola2;
+	private Image imgBola3;
 	private int posX, posY, alto, ancho, velocidad, dirH, dirY;
+	private int tipo; //1 BOLA1  -  2 BOLA2  -  3 BOLA3
 	private double rebote;
 	private boolean intersectado;
 	
 	public Enemigo(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
 		//CARGAR IMAGEN
-		imgEnemigo = new ImageIcon(getClass().getResource("Enemigos/Bola1.png")).getImage();
+		imgBola1 = new ImageIcon(getClass().getResource("Enemigos/Bola1.png")).getImage();
+		imgBola2 = new ImageIcon(getClass().getResource("Enemigos/Bola2.png")).getImage();
+		imgBola3 = new ImageIcon(getClass().getResource("Enemigos/Bola3.png")).getImage();
 		//CARGAR DATOS
-		posX = 350;
-		posY = 50;
-		alto = 100;
-		ancho = 100;
-		velocidad = 2;
-		intersectado = false;
-		dirH = 1;
-		rebote = 10;
+		tipo = 3;
+		posX = 300;
+
+		switch (tipo) {
+		case 1:
+			alto = 30;
+			ancho = 30;
+			velocidad = 4;
+			intersectado = false;
+			rebote = 10;
+			break;
+		case 2:
+			alto = 65;
+			ancho = 65;
+			velocidad = 3;
+			intersectado = false;
+			rebote = 10;
+			break;
+		case 3:
+			alto = 100;
+			ancho = 100;
+			velocidad = 2;
+			intersectado = false;
+			rebote = 10;
+			break;
+
+		default:
+			break;
+		}
+
 	}
 	
 	public void run() {
@@ -43,13 +70,36 @@ public class Enemigo extends Thread{
 			//SISTEMA DE REBOTE
 			posY =  (int) (posY - velocidad - rebote/10);	
 				
-			if (rebote <= 0) {
-				if (posY+alto >= zonaJuego.getHeight()) {
-					rebote = 50;
-				}
+			switch (tipo) {
+			case 1:
+				if (rebote <= 0) {
+					if (posY+alto >= zonaJuego.getHeight()) {
+						rebote = 50;
+					}
 
+				}
+				break;
+			case 2:
+				if (rebote <= 0) {
+					if (posY+alto >= zonaJuego.getHeight()) {
+						rebote = 30;
+					}
+
+				}
+				break;
+			case 3:
+				if (rebote <= 0) {
+					if (posY+alto >= zonaJuego.getHeight()) {
+						rebote = 45;
+					}
+				}
+				break;
+
+			default:
+				break;
 			}
 				rebote--;
+
 				
 			zonaJuego.repaint();
 			try {
@@ -62,21 +112,22 @@ public class Enemigo extends Thread{
 	}
 
 	public void dibujar(Graphics g) {
-		g.drawImage(imgEnemigo, posX, (int) posY, ancho, alto, null);
+		if (tipo == 1) {
+			g.drawImage(imgBola3, posX, (int) posY, ancho, alto, null);
+
+		}else if (tipo == 2) {
+			g.drawImage(imgBola2, posX, (int) posY, ancho, alto, null);
+
+		}else if (tipo == 3) {
+			g.drawImage(imgBola1, posX, (int) posY, ancho, alto, null);
+
+		}
 
 	}
 
 	
 	
 	//GETTERS Y SETTERS
-	public Image getImgEnemigo() {
-		return imgEnemigo;
-	}
-
-	public void setImgEnemigo(Image imgEnemigo) {
-		this.imgEnemigo = imgEnemigo;
-	}
-
 	public int getPosX() {
 		return posX;
 	}
@@ -148,6 +199,18 @@ public class Enemigo extends Thread{
 	public void setIntersectado(boolean intersectado) {
 		this.intersectado = intersectado;
 	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle(posX, posY, ancho, alto);
+		
+	}
 
+	public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
 
 }
