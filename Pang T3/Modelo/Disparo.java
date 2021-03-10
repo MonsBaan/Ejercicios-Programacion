@@ -47,7 +47,7 @@ public class Disparo extends Thread {
 				}
 			zonaJuego.repaint();	
 			}
-			
+
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
@@ -115,9 +115,9 @@ public class Disparo extends Thread {
 	public void setDisparo(boolean disparo) {
 		this.disparo = disparo;
 	}
-	public Rectangle getRect() {
-		return new Rectangle(posX, posY, ancho, alto);
-	}
+
+	
+
 
 	
 }

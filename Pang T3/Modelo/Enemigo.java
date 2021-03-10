@@ -1,6 +1,8 @@
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 
 import javax.swing.ImageIcon;
 
@@ -8,8 +10,8 @@ public class Enemigo extends Thread{
 
 	private ZonaJuego zonaJuego;
 	private Image imgEnemigo;
-	private int posX, alto, ancho, velocidad, dirH, dirY;
-	private double rebote, posY;
+	private int posX, posY, alto, ancho, velocidad, dirH, dirY;
+	private double rebote;
 	private boolean intersectado;
 	
 	public Enemigo(ZonaJuego zonaJuego) {
@@ -39,7 +41,7 @@ public class Enemigo extends Thread{
 			}
 				
 			//SISTEMA DE REBOTE
-			posY =  posY - velocidad - rebote/10;	
+			posY =  (int) (posY - velocidad - rebote/10);	
 				
 			if (rebote <= 0) {
 				if (posY+alto >= zonaJuego.getHeight()) {
@@ -48,9 +50,8 @@ public class Enemigo extends Thread{
 
 			}
 				rebote--;
-
+				
 			zonaJuego.repaint();
-			
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
@@ -136,7 +137,7 @@ public class Enemigo extends Thread{
 		return posY;
 	}
 
-	public void setPosY(double posY) {
+	public void setPosY(int posY) {
 		this.posY = posY;
 	}
 
@@ -147,8 +148,6 @@ public class Enemigo extends Thread{
 	public void setIntersectado(boolean intersectado) {
 		this.intersectado = intersectado;
 	}
-	public Rectangle getRect() {
-		return new Rectangle(posX, (int) posY, ancho, alto);
-		
-	}
+
+
 }

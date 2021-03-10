@@ -1,15 +1,18 @@
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
 public class EventosJuego {
 	private ZonaJuego zonaJuego;
 	private int[] arrayTeclas; //0 - Disparar, 1 - Izquierda, 2 - Derecha, 3 - Arriba, 4 - Abajo
-	private boolean disparo;
-
+	private ArrayList<Enemigo> arrayEnemigo1;
+	private ArrayList<Enemigo> arrayEnemigo2;
+	private ArrayList<Enemigo> arrayEnemigo3;
 	private Timer timerPersonaje;
 	
 	public EventosJuego(ZonaJuego zonaJuego) {
@@ -21,8 +24,9 @@ public class EventosJuego {
 			i = 0;
 		}
 		
+		
 		//TIMER PERSONAJE
-		timerPersonaje = new Timer(25, new ActionListener() {
+		timerPersonaje = new Timer(20, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -30,12 +34,12 @@ public class EventosJuego {
 				if (arrayTeclas[1]==1) {
 					zonaJuego.getJugador().setDirH(-1);
 					zonaJuego.getJugador().mover();
-					zonaJuego.repaint();
 				}else if(arrayTeclas[2]==1){
 					zonaJuego.getJugador().setDirH(1);
 					zonaJuego.getJugador().mover();
-					zonaJuego.repaint();
 				}
+				zonaJuego.repaint();
+
 			}
 		});
 		timerPersonaje.start();
@@ -101,10 +105,8 @@ public class EventosJuego {
 			}
 		});
 		
-		
-		if (zonaJuego.getDisparo().getRect().intersects(zonaJuego.getEnemigo().getRect())) {
-			System.out.println("OWO");
-		}
+
+
 
 	}
 
