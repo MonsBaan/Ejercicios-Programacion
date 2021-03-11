@@ -3,20 +3,18 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-
 public class ZonaJuego extends Canvas {
 	//DATOS
 	private Image fondo;
-	private Jugador jugador;
-	private Disparo disparo;
-	private Enemigo enemigo;
 	private EventosJuego eventosJuego;
 	private Image buffer;
 	private Graphics pantallaVirtual;
+	private int vidas;
+	private ArrayList<Jugador> arrayJugador;
 	private ArrayList<Enemigo> arrayEnemigo1;
 	private ArrayList<Enemigo> arrayEnemigo2;
 	private ArrayList<Enemigo> arrayEnemigo3;
+	private ArrayList<Disparo> arrayDisparo;
 	
 	//CONSTRUCTORES
 	public ZonaJuego(){
@@ -24,9 +22,9 @@ public class ZonaJuego extends Canvas {
 		//fondo = new ImageIcon(getClass().getResource("montaña.jpg")).getImage();
 
 		//CARGAR JUGADOR Y DISPARO
-		jugador = new Jugador(this);
-		disparo = new Disparo(this);
-		disparo.start();
+		vidas = 3;
+		arrayJugador = new ArrayList<Jugador>();
+		arrayDisparo = new ArrayList<Disparo>();
 		
 		//CARGAR ENEMIGOS
 		arrayEnemigo1 = new ArrayList<Enemigo>();
@@ -37,15 +35,21 @@ public class ZonaJuego extends Canvas {
 		//CARGAR EVENTOS
 		eventosJuego = new EventosJuego(this);
 	}
-	
+
 	//PAINT Y DOBLE BUFFER
 	public void paint(Graphics g) {
 		super.paint(g);
 		//g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
-		jugador.dibujar(g);
-		disparo.dibujar(g);
-
-
+		if (arrayJugador.size()!=0) {
+			for (Jugador jugador : arrayJugador) {
+				jugador.dibujar(g);
+			}
+		}
+		if (arrayDisparo.size()!=0) {
+			for (Disparo disparo : arrayDisparo) {
+				disparo.dibujar(g);
+			}
+		}
 		if (arrayEnemigo1.size()!=0) {
 			for (Enemigo enemigo : arrayEnemigo1) {
 				enemigo.dibujar(g);
@@ -83,14 +87,6 @@ public class ZonaJuego extends Canvas {
 		this.fondo = fondo;
 	}
 
-	public Jugador getJugador() {
-		return jugador;
-	}
-
-	public void setJugador(Jugador jugador) {
-		this.jugador = jugador;
-	}
-
 	public EventosJuego getEventosJuego() {
 		return eventosJuego;
 	}
@@ -115,22 +111,6 @@ public class ZonaJuego extends Canvas {
 		this.pantallaVirtual = pantallaVirtual;
 	}
 
-	public Disparo getDisparo() {
-		return disparo;
-	}
-
-	public void setDisparo(Disparo disparo) {
-		this.disparo = disparo;
-	}
-
-	public Enemigo getEnemigo() {
-		return enemigo;
-	}
-
-	public void setEnemigo(Enemigo enemigo) {
-		this.enemigo = enemigo;
-	}
-
 	public ArrayList<Enemigo> getArrayEnemigo1() {
 		return arrayEnemigo1;
 	}
@@ -153,5 +133,29 @@ public class ZonaJuego extends Canvas {
 
 	public void setArrayEnemigo3(ArrayList<Enemigo> arrayEnemigo3) {
 		this.arrayEnemigo3 = arrayEnemigo3;
+	}
+
+	public ArrayList<Disparo> getArrayDisparo() {
+		return arrayDisparo;
+	}
+
+	public void setArrayDisparo(ArrayList<Disparo> arrayDisparo) {
+		this.arrayDisparo = arrayDisparo;
+	}
+	
+	public ArrayList<Jugador> getArrayJugador() {
+		return arrayJugador;
+	}
+
+	public void setArrayJugador(ArrayList<Jugador> arrayJugador) {
+		this.arrayJugador = arrayJugador;
+	}
+
+	public int getVidas() {
+		return vidas;
+	}
+
+	public void setVidas(int vidas) {
+		this.vidas = vidas;
 	}
 }

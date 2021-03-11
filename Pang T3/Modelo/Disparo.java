@@ -11,41 +11,38 @@ public class Disparo extends Thread {
 	private ZonaJuego zonaJuego;
 	private Image imgDisparo;
 	private int posX, posY, alto, ancho, velocidad;
-	private boolean intersectado, disparo;
+	private boolean disparo;
 
 	public Disparo(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
 		//CARGAR IMAGEN
-		imgDisparo = new ImageIcon(getClass().getResource("Disparo/Disparo.png")).getImage();
-		posX = 0;
-		posY = zonaJuego.getJugador().getPosY()+100;
-		alto = 770;
-		ancho = 10;
-		velocidad = 5;
-		intersectado = false;
-		disparo = false;
+		if (zonaJuego.getArrayJugador().size() != 0) {
+			for (int j = 0; j < zonaJuego.getArrayJugador().size(); j++) {
+				imgDisparo = new ImageIcon(getClass().getResource("Disparo/Disparo.png")).getImage();
+				posX = 0;
+				posY = zonaJuego.getArrayJugador().get(j).getPosY()+100;
+				alto = 770;
+				ancho = 10;
+				velocidad = 10;
+				disparo = false;
+			}
+		}
+
 	}
 	public void dibujar(Graphics g) {
 		g.drawImage(imgDisparo, posX, posY, ancho, alto, null);
 
 	}
-	
-	
+
+
 	@Override
 	public void run() {
 		super.run();
 		while (true) { 	//SI SE DISPARA, LA BALA SE MUEVE HASTA ARRIBA
 
 			if (disparo) {
-				if (posY <= 0 || intersectado == true) {
-					posY = zonaJuego.getHeight();
-					disparo = false;
-
-				}else {
-					posY -= velocidad;
-
-				}
-			zonaJuego.repaint();	
+				posY -= velocidad;
+				zonaJuego.repaint();
 			}
 
 			try {
@@ -56,9 +53,9 @@ public class Disparo extends Thread {
 			}
 		}
 	}
-	
-	
-	
+
+
+
 
 	//GETTERS Y SETTERS
 	public ZonaJuego getZonaJuego() {
@@ -103,12 +100,6 @@ public class Disparo extends Thread {
 	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
 	}
-	public boolean isIntersectado() {
-		return intersectado;
-	}
-	public void setIntersectado(boolean intersectado) {
-		this.intersectado = intersectado;
-	}
 	public boolean isDisparo() {
 		return disparo;
 	}
@@ -118,9 +109,9 @@ public class Disparo extends Thread {
 
 	public Rectangle getBounds() {
 		return new Rectangle(posX, posY, ancho, alto);
-		
+
 	}
 
 
-	
+
 }

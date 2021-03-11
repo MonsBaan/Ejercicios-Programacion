@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
@@ -34,7 +35,7 @@ public class Jugador {
 		ancho = 90;
 		posX = 97;
 		posY = SUELO;
-		estado = 0; //0- SIN MOVIMIENTO, 1- MOVIENDOSE
+		estado = 0; //0- SIN MOVIMIENTO, 1- MOVIENDOSE, 2 - GOLPEADO
 		dirH = 1; //-1 IZQUIERDA, 1 DERECHA
 		velocidad = 5;
 		
@@ -171,6 +172,10 @@ public class Jugador {
 	}
 	public void setZonaJuego(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
+	}
+	public Rectangle getBounds() {
+		return new Rectangle(posX, posY, ancho, alto);
+		
 	}
 
 }

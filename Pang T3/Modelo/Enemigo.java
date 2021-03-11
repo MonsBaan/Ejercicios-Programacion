@@ -1,8 +1,7 @@
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -19,14 +18,19 @@ public class Enemigo extends Thread{
 	
 	public Enemigo(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
+		Random r = new Random();
 		//CARGAR IMAGEN
 		imgBola1 = new ImageIcon(getClass().getResource("Enemigos/Bola1.png")).getImage();
 		imgBola2 = new ImageIcon(getClass().getResource("Enemigos/Bola2.png")).getImage();
 		imgBola3 = new ImageIcon(getClass().getResource("Enemigos/Bola3.png")).getImage();
 		//CARGAR DATOS
-		tipo = 3;
 		posX = 300;
+		tipo = 3;
 
+	}
+	
+	public void run() {
+		super.run();
 		switch (tipo) {
 		case 1:
 			alto = 30;
@@ -43,8 +47,8 @@ public class Enemigo extends Thread{
 			rebote = 10;
 			break;
 		case 3:
-			alto = 100;
-			ancho = 100;
+			alto = 90;
+			ancho = 90;
 			velocidad = 2;
 			intersectado = false;
 			rebote = 10;
@@ -53,11 +57,7 @@ public class Enemigo extends Thread{
 		default:
 			break;
 		}
-
-	}
-	
-	public void run() {
-		super.run();
+		
 		while(true) {
 			//COLISION LATERAL
 			posX = posX + velocidad * dirH;
@@ -188,8 +188,8 @@ public class Enemigo extends Thread{
 		return posY;
 	}
 
-	public void setPosY(int posY) {
-		this.posY = posY;
+	public void setPosY(int d) {
+		this.posY = d;
 	}
 
 	public boolean isIntersectado() {
