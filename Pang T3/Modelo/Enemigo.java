@@ -113,13 +113,13 @@ public class Enemigo extends Thread{
 
 	public void dibujar(Graphics g) {
 		if (tipo == 1) {
-			g.drawImage(imgBola3, posX, (int) posY, ancho, alto, null);
+			g.drawImage(imgBola1, posX, (int) posY, ancho, alto, null);
 
 		}else if (tipo == 2) {
 			g.drawImage(imgBola2, posX, (int) posY, ancho, alto, null);
 
 		}else if (tipo == 3) {
-			g.drawImage(imgBola1, posX, (int) posY, ancho, alto, null);
+			g.drawImage(imgBola3, posX, (int) posY, ancho, alto, null);
 
 		}
 
@@ -201,7 +201,7 @@ public class Enemigo extends Thread{
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle(posX, posY, ancho, alto);
+		return new Rectangle(posX+10, posY-10, ancho-10, alto-20);
 		
 	}
 

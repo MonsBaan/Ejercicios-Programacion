@@ -26,8 +26,8 @@ public class Jugador {
 	public Jugador(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
 		//CARGAR IMAGENES
-		imgD = new Image [9];
-		imgI = new Image [9];
+		imgD = new Image [23];
+		imgI = new Image [23];
 		imgActual = 0;
 		
 		//VALORES
@@ -174,7 +174,7 @@ public class Jugador {
 		this.zonaJuego = zonaJuego;
 	}
 	public Rectangle getBounds() {
-		return new Rectangle(posX, posY, ancho, alto);
+		return new Rectangle(posX+10, posY, ancho-20, alto-20);
 		
 	}
 

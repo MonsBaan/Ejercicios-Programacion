@@ -8,11 +8,15 @@ import javax.swing.Timer;
 public class EventosJuego {
 	private ZonaJuego zonaJuego;
 	private int[] arrayTeclas; //0 - Disparar, 1 - Izquierda, 2 - Derecha, 3 - Arriba, 4 - Abajo
-	private int nivel;
-	private Timer impactado;
+	private boolean intersectado = false;
+	private boolean invulnerable = false;
+	private int parpadeo = 0;//0 - Escondido, 1 - Dibujado
+	private int contInvulnerable = 0;
+	private int contBolas;
 
 
 	private Timer timerPersonaje;
+	private Timer timerInvulnerable;
 
 	public EventosJuego(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
@@ -26,18 +30,19 @@ public class EventosJuego {
 		for (int i : arrayTeclas) {
 			i = 0;
 		}
-		nivel = 1;
-		for (int i = 0; i < nivel; i++) {
+		for (int i = 0; i < zonaJuego.getNivel(); i++) {
 			Enemigo bola;
 			bola = new Enemigo(zonaJuego);
+			bola.setTipo(3);
+			bola.getDirH();
 			zonaJuego.getArrayEnemigo1().add(bola);
+			contBolas++;
 			bola.start();
 		}
 
 
 		//TIMER PERSONAJE
-		timerPersonaje = new Timer(20, new ActionListener() {
-
+		timerPersonaje = new Timer(15, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (zonaJuego.getArrayJugador().size() != 0) {
@@ -58,16 +63,53 @@ public class EventosJuego {
 						if (zonaJuego.getArrayDisparo().size()!=0) {
 							checkColisionDisparo();
 						}
+
+						if (intersectado) {
+							timerInvulnerable.start();
+							intersectado = false;
+						}
+
+
+
 					}
-
 				}
-
-
 				zonaJuego.repaint();
 			}
 		});
-		timerPersonaje.start();
 
+		//TIMER INVULNERABILIDAD
+		timerInvulnerable = new Timer(200, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (zonaJuego.getArrayJugador().size() != 0) {
+					for (int i = 0; i < zonaJuego.getArrayJugador().size(); i++) {
+						if (parpadeo == 1) {
+							parpadeo = 0;
+						}else if (parpadeo == 0){
+							parpadeo = 1;
+						}
+
+					}
+				}
+				invulnerable = true;
+				contInvulnerable++;
+				if (contInvulnerable >= 8) {
+					timerInvulnerable.stop();
+					contInvulnerable = 0;
+					parpadeo = 0;
+					invulnerable = false;
+					zonaJuego.repaint();
+				}
+			}
+		});
+
+
+		
+		
+		timerPersonaje.start();
+		
+		//EVENTOS DE TECLAS
 		zonaJuego.addKeyListener(new KeyListener() {
 
 			@Override
@@ -169,26 +211,25 @@ public class EventosJuego {
 
 	}
 
+	//COMPROBAR COLISION DE UNA PELOTA CON EL JUGADOR
 	public void checkColisionJugador() {
-		boolean intesectado = false;
 		if (zonaJuego.getArrayJugador().size() != 0) {
 			for (int i = 0; i < zonaJuego.getArrayJugador().size(); i++) {
-				Rectangle Rjugador = zonaJuego.getArrayJugador().get(i).getBounds();
+				Rectangle Rjugador = zonaJuego.getArrayJugador().get(i).getBounds();//SE CREA UN RECTANGULO ALREDEDOR DEL PERSONAJE
 
 				if (zonaJuego.getArrayEnemigo1().size() != 0) {
 					for (int enemigoAct = 0; enemigoAct < zonaJuego.getArrayEnemigo1().size(); enemigoAct++) {
 						Rectangle Rbola = zonaJuego.getArrayEnemigo1().get(enemigoAct).getBounds();//SE CREA UN RECTANGULO EN CADA BOLA EXISTENTE EN EL ARRAYLIST
 						if (Rbola.intersects(Rjugador)) {
-							intesectado = true;
+							intersectado = true;
 						}
 					}
 				}//FINAL DE CHECK COLISION EN ARRAY 1
-
 				if (zonaJuego.getArrayEnemigo2().size() != 0) {
 					for (int enemigoAct = 0; enemigoAct < zonaJuego.getArrayEnemigo2().size(); enemigoAct++) {
 						Rectangle Rbola = zonaJuego.getArrayEnemigo2().get(enemigoAct).getBounds();//SE CREA UN RECTANGULO EN CADA BOLA EXISTENTE EN EL ARRAYLIST
 						if (Rbola.intersects(Rjugador)) {
-							intesectado = true;
+							intersectado = true;
 						}
 					}
 				}//FINAL DE CHECK COLISION EN ARRAY 2
@@ -197,44 +238,36 @@ public class EventosJuego {
 					for (int enemigoAct = 0; enemigoAct < zonaJuego.getArrayEnemigo3().size(); enemigoAct++) {
 						Rectangle Rbola = zonaJuego.getArrayEnemigo3().get(enemigoAct).getBounds();//SE CREA UN RECTANGULO EN CADA BOLA EXISTENTE EN EL ARRAYLIST
 						if (Rbola.intersects(Rjugador)) {
-							intesectado = true;
+							intersectado = true;
 						}
 					}
 				}//FINAL DE CHECK COLISION EN ARRAY 3
 			}
 		}
-
-		if (intesectado) {
-			zonaJuego.setVidas(zonaJuego.getVidas()-1);
-			impactado = new Timer(500, new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					if (zonaJuego.getArrayJugador().size() != 0) {
-						for (int i = 0; i < zonaJuego.getArrayJugador().size(); i++) {
-							zonaJuego.getArrayJugador().get(i).setEstado(true);
-						}
-					}
-					
-					impactado.stop();
-				}
-			});
-		}
 		
+		
+		
+		System.out.println(zonaJuego.getVidas());
+
+		//EN CASO DE SER GOLPEADO TENER 3 SEGUNDOS DE INMUNIDAD
+		if (intersectado) {
+			if (invulnerable == false) {
+				invulnerable = true;
+				zonaJuego.setVidas(zonaJuego.getVidas()-1);
+
+				
+			}
+		}
 		if (zonaJuego.getVidas() <= 0) {
-			System.out.println("ded");
+			System.out.println("PERDISTE");
 			zonaJuego.getArrayJugador().clear();
 			zonaJuego.getArrayDisparo().clear();
 			zonaJuego.getArrayEnemigo1().clear();
 			zonaJuego.getArrayEnemigo2().clear();
 			zonaJuego.getArrayEnemigo3().clear();
 		}
+
 	}
-
-
-
-
-
 
 	public void checkColisionDisparo() {
 		if (zonaJuego.getArrayDisparo().size()!=0) {
@@ -304,6 +337,17 @@ public class EventosJuego {
 			}
 		}		
 	}//FIN DE CHECK DE COLISIONES DE DISPAROS
+
+	
+	
+	//GETTERS Y SETTERS
+	public int getInvulnerable() {
+		return parpadeo;
+	}
+
+	public void setInvulnerable(int invulnerable) {
+		this.parpadeo = invulnerable;
+	}
 
 
 

@@ -10,6 +10,7 @@ public class MainJuego extends JFrame {
 
 	private JPanel contentPane;
 	private ZonaJuego zonaJuego;
+	private Menu menu;
 
 	/**
 	 * Launch the application.
@@ -32,7 +33,7 @@ public class MainJuego extends JFrame {
 	 */
 	public MainJuego() {
 		setTitle("Chaka-Pang");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainJuego.class.getResource("/Enemigos/Bola1.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainJuego.class.getResource("/Enemigos/Bola3.png")));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 515);
@@ -40,12 +41,16 @@ public class MainJuego extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
 		zonaJuego = new ZonaJuego();
 		contentPane.add(zonaJuego);
-		
 		zonaJuego.setFocusable(true);
 		zonaJuego.requestFocus();
+		
+		
+		
+		/*menu = new Menu();
+		contentPane.add(menu);
+		menu.setFocusable(true);*/
 	}
 
 }

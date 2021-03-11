@@ -10,6 +10,7 @@ public class ZonaJuego extends Canvas {
 	private Image buffer;
 	private Graphics pantallaVirtual;
 	private int vidas;
+	private int nivel;
 	private ArrayList<Jugador> arrayJugador;
 	private ArrayList<Enemigo> arrayEnemigo1;
 	private ArrayList<Enemigo> arrayEnemigo2;
@@ -23,6 +24,7 @@ public class ZonaJuego extends Canvas {
 
 		//CARGAR JUGADOR Y DISPARO
 		vidas = 3;
+		nivel = 2;
 		arrayJugador = new ArrayList<Jugador>();
 		arrayDisparo = new ArrayList<Disparo>();
 		
@@ -42,7 +44,9 @@ public class ZonaJuego extends Canvas {
 		//g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
 		if (arrayJugador.size()!=0) {
 			for (Jugador jugador : arrayJugador) {
-				jugador.dibujar(g);
+				if (eventosJuego.getInvulnerable()!=1) {
+					jugador.dibujar(g);
+				}
 			}
 		}
 		if (arrayDisparo.size()!=0) {
@@ -68,8 +72,7 @@ public class ZonaJuego extends Canvas {
 
 
 	}
-	public void update(Graphics g) {
-		//DOBLE BUFFER
+	public void update(Graphics g) {		//DOBLE BUFFER
 		buffer = createImage(this.getWidth(), this.getHeight());
 		pantallaVirtual = buffer.getGraphics();
 		paint(pantallaVirtual);
@@ -157,5 +160,13 @@ public class ZonaJuego extends Canvas {
 
 	public void setVidas(int vidas) {
 		this.vidas = vidas;
+	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
 	}
 }
