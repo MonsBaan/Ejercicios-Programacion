@@ -11,6 +11,7 @@ public class MainJuego extends JFrame {
 	private JPanel contentPane;
 	private ZonaJuego zonaJuego;
 	private Menu menu;
+	private int estadoJuego;//0 - Menu, 1 - Juego
 
 	/**
 	 * Launch the application.
@@ -41,16 +42,30 @@ public class MainJuego extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		zonaJuego = new ZonaJuego();
-		contentPane.add(zonaJuego);
-		zonaJuego.setFocusable(true);
-		zonaJuego.requestFocus();
+		
+		estadoJuego = 1;
+		
+		switch (estadoJuego) {
+		case 0:
+			menu = new Menu();
+			contentPane.add(menu);
+			menu.setFocusable(true);
+			break;
+		case 1:
+			zonaJuego = new ZonaJuego();
+			contentPane.add(zonaJuego);
+			zonaJuego.setFocusable(true);
+			zonaJuego.requestFocus();
+			break;
+
+		default:
+			break;
+		}
+		
+
 		
 		
 		
-		/*menu = new Menu();
-		contentPane.add(menu);
-		menu.setFocusable(true);*/
 	}
 
 }

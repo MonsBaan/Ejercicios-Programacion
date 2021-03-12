@@ -12,7 +12,6 @@ public class EventosJuego {
 	private boolean invulnerable = false;
 	private int parpadeo = 0;//0 - Escondido, 1 - Dibujado
 	private int contInvulnerable = 0;
-	private int contBolas;
 
 
 	private Timer timerPersonaje;
@@ -34,9 +33,13 @@ public class EventosJuego {
 			Enemigo bola;
 			bola = new Enemigo(zonaJuego);
 			bola.setTipo(3);
-			bola.getDirH();
+			if (i%2==0) {
+				bola.setDirH(1);
+			}else {
+				bola.setDirH(-1);
+
+			}
 			zonaJuego.getArrayEnemigo1().add(bola);
-			contBolas++;
 			bola.start();
 		}
 
@@ -73,6 +76,33 @@ public class EventosJuego {
 
 					}
 				}
+				
+				switch (checkFinJuego()) {
+				case 1:
+					System.out.println("Derrota");
+					zonaJuego.getArrayJugador().clear();
+					zonaJuego.getArrayDisparo().clear();
+					zonaJuego.getArrayEnemigo1().clear();
+					zonaJuego.getArrayEnemigo2().clear();
+					zonaJuego.getArrayEnemigo3().clear();
+					timerPersonaje.stop();
+					break;
+				case 2:
+					System.out.println("Victoria");
+					zonaJuego.getArrayJugador().clear();
+					zonaJuego.getArrayDisparo().clear();
+					zonaJuego.getArrayEnemigo1().clear();
+					zonaJuego.getArrayEnemigo2().clear();
+					zonaJuego.getArrayEnemigo3().clear();
+					timerPersonaje.stop();
+
+					break;
+
+				default:
+					break;
+				}
+				
+
 				zonaJuego.repaint();
 			}
 		});
@@ -247,7 +277,7 @@ public class EventosJuego {
 		
 		
 		
-		System.out.println(zonaJuego.getVidas());
+		//System.out.println(zonaJuego.getVidas());
 
 		//EN CASO DE SER GOLPEADO TENER 3 SEGUNDOS DE INMUNIDAD
 		if (intersectado) {
@@ -257,14 +287,6 @@ public class EventosJuego {
 
 				
 			}
-		}
-		if (zonaJuego.getVidas() <= 0) {
-			System.out.println("PERDISTE");
-			zonaJuego.getArrayJugador().clear();
-			zonaJuego.getArrayDisparo().clear();
-			zonaJuego.getArrayEnemigo1().clear();
-			zonaJuego.getArrayEnemigo2().clear();
-			zonaJuego.getArrayEnemigo3().clear();
 		}
 
 	}
@@ -339,7 +361,23 @@ public class EventosJuego {
 	}//FIN DE CHECK DE COLISIONES DE DISPAROS
 
 	
-	
+	public int checkFinJuego() {
+		int vidas = zonaJuego.getVidas();
+		int enemigos1 = zonaJuego.getArrayEnemigo1().size();
+		int enemigos2 = zonaJuego.getArrayEnemigo2().size();
+		int enemigos3 = zonaJuego.getArrayEnemigo3().size();
+		
+		if (vidas <= 0) {
+			return 1;
+		}
+		
+		if (enemigos1 == 0 && enemigos2 == 0 && enemigos3 == 0) {
+			
+			return 2;
+		}
+		
+		return 0;
+	}
 	//GETTERS Y SETTERS
 	public int getInvulnerable() {
 		return parpadeo;

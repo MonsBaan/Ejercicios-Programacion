@@ -61,7 +61,7 @@ public class Enemigo extends Thread{
 		while(true) {
 			//COLISION LATERAL
 			posX = posX + velocidad * dirH;
-			if (posX+ancho >= zonaJuego.getWidth()) {
+			if (posX+ancho >= 700-25) {
 				dirH = -1;
 			}else if (posX <= 0) {
 				dirH = 1;
