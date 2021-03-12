@@ -1,6 +1,7 @@
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class ZonaJuego extends Canvas {
@@ -11,11 +12,13 @@ public class ZonaJuego extends Canvas {
 	private Graphics pantallaVirtual;
 	private int vidas;
 	private int nivel;
+	private SoundEffect se;
 	private ArrayList<Jugador> arrayJugador;
 	private ArrayList<Enemigo> arrayEnemigo1;
 	private ArrayList<Enemigo> arrayEnemigo2;
 	private ArrayList<Enemigo> arrayEnemigo3;
 	private ArrayList<Disparo> arrayDisparo;
+	private URL pop1, pop2, pop3;
 	
 	//CONSTRUCTORES
 	public ZonaJuego(){
@@ -33,6 +36,10 @@ public class ZonaJuego extends Canvas {
 		arrayEnemigo2 = new ArrayList<Enemigo>();
 		arrayEnemigo3 = new ArrayList<Enemigo>();
 
+		se = new SoundEffect(this);
+		pop1 = getClass().getResource("Sonidos/Pop1.wav");
+		pop2 = getClass().getResource("Sonidos/Pop2.wav");
+		pop3 = getClass().getResource("Sonidos/Pop3.wav");
 
 		//CARGAR EVENTOS
 		eventosJuego = new EventosJuego(this);
@@ -169,4 +176,38 @@ public class ZonaJuego extends Canvas {
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
 	}
+
+	public SoundEffect getSe() {
+		return se;
+	}
+
+	public void setSe(SoundEffect se) {
+		this.se = se;
+	}
+
+	public URL getPop1() {
+		return pop1;
+	}
+
+	public void setPop1(URL pop1) {
+		this.pop1 = pop1;
+	}
+
+	public URL getPop2() {
+		return pop2;
+	}
+
+	public void setPop2(URL pop2) {
+		this.pop2 = pop2;
+	}
+
+	public URL getPop3() {
+		return pop3;
+	}
+
+	public void setPop3(URL pop3) {
+		this.pop3 = pop3;
+	}
+
+
 }

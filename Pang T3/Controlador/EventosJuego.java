@@ -318,9 +318,16 @@ public class EventosJuego {
 									zonaJuego.getArrayEnemigo2().add(bolaNew);
 									bolaNew.start();
 								}
+								zonaJuego.getSe().setFile(zonaJuego.getPop3());
+								zonaJuego.getSe().play();
 								zonaJuego.getArrayEnemigo1().remove(enemigoAct);//SE ELIMINA EL ENEMIGO INTERSECTADO
 							}
 						}//FINAL DE CHECK COLISION EN ARRAY 1
+						
+						
+						
+						
+						
 					}
 					if (zonaJuego.getArrayDisparo().size()!=0) {
 						for (int enemigoAct = 0; enemigoAct < zonaJuego.getArrayEnemigo2().size(); enemigoAct++) {
@@ -342,6 +349,8 @@ public class EventosJuego {
 									zonaJuego.getArrayEnemigo3().add(bolaNew);
 									bolaNew.start();
 								}
+								zonaJuego.getSe().setFile(zonaJuego.getPop2());
+								zonaJuego.getSe().play();
 								zonaJuego.getArrayEnemigo2().remove(enemigoAct);//SE ELIMINA EL ENEMIGO INTERSECTADO
 							}
 						}//FINAL DE CHECK COLISION EN ARRAY 2
@@ -351,6 +360,8 @@ public class EventosJuego {
 							Rectangle Rbola = zonaJuego.getArrayEnemigo3().get(enemigoAct).getBounds();//SE CREA UN RECTANGULO EN CADA BOLA EXISTENTE EN EL ARRAYLIST
 							if (Rdisparo.intersects(Rbola)) {
 								zonaJuego.getArrayDisparo().remove(disparoAct);//SE ELIMINA EL DISPARO EN CASO DE SER INTERSECTADO
+								zonaJuego.getSe().setFile(zonaJuego.getPop1());
+								zonaJuego.getSe().play();
 								zonaJuego.getArrayEnemigo3().remove(enemigoAct);//SE ELIMINA EL ENEMIGO INTERSECTADO
 							}
 						}//FINAL DE CHECK COLISION EN ARRAY 3
