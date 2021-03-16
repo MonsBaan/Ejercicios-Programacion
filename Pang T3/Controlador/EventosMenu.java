@@ -1,8 +1,47 @@
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class EventosMenu {
+	private Menu menu;
+	private MainJuego mainJuego;
 
-	public EventosMenu(Menu menu) {
-		// TODO Auto-generated constructor stub
+	public EventosMenu(Menu menu, MainJuego mainJuego) {
+		this.menu = menu;
+		this.mainJuego = mainJuego;
+		menu.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				Rectangle rMouse, rBoton1, rBoton2, rBoton3;
+				rMouse = new Rectangle(e.getX(), e.getY(), 1, 1);
+				rBoton1 = new Rectangle(menu.getBoundsbtnComenzar());
+				rBoton2 = new Rectangle(menu.getBoundsbtnControles());
+				rBoton3 = new Rectangle(menu.getBoundsbtnSalir());
+				
+				if (rMouse.intersects(rBoton1)) {
+					System.out.println("Comenzar");
+				}else if (rMouse.intersects(rBoton2)) {
+					System.out.println("Controles");
+				}else if (rMouse.intersects(rBoton3)) {
+					System.out.println("Cerrar");
+					System.exit(1);
+				}
+				
+			}
+
+			public void mousePressed(MouseEvent e) {
+			}
+			public void mouseExited(MouseEvent e) {
+			}
+			public void mouseEntered(MouseEvent e) {
+			}
+			public void mouseClicked(MouseEvent e) {
+
+			}
+		});
 	}
+
+
 
 }

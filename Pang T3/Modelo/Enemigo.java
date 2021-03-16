@@ -1,9 +1,13 @@
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 public class Enemigo extends Thread{
 
@@ -13,8 +17,9 @@ public class Enemigo extends Thread{
 	private Image imgBola3;
 	private int posX, posY, alto, ancho, velocidad, dirH, dirY;
 	private int tipo; //1 BOLA1  -  2 BOLA2  -  3 BOLA3
-	private double rebote;
+	private double rebote, rotacion;
 	private boolean intersectado;
+	private Timer reloj;
 	
 	public Enemigo(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
@@ -26,7 +31,7 @@ public class Enemigo extends Thread{
 		//CARGAR DATOS
 		posX = 300;
 		tipo = 3;
-
+		
 	}
 	
 	public void run() {

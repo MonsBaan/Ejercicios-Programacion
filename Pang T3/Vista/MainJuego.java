@@ -43,7 +43,7 @@ public class MainJuego extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		estadoJuego = 0;
+		estadoJuego = 1;
 		
 
 		
@@ -56,7 +56,7 @@ public class MainJuego extends JFrame {
 	public void estadoJuego(int estadoJuego) {
 		switch (estadoJuego) {
 		case 0:
-			menu = new Menu();
+			menu = new Menu(this);
 			contentPane.add(menu);
 			menu.setFocusable(true);
 			break;
