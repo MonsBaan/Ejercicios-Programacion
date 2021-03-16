@@ -43,7 +43,7 @@ public class MainJuego extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		estadoJuego = 1;
+		estadoJuego = 0;
 		
 
 		

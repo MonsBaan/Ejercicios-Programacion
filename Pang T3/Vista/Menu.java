@@ -16,7 +16,7 @@ public class Menu extends Canvas{
 	private EventosMenu eventosMenu;
 	private Timer reloj;
 	private double rotacion = 0;
-	private Image fondo, buffer, titulo, btnComenzar, btnControles, btnSalir, enemigo;
+	private Image fondo, buffer, titulo, btnComenzar, btnAyuda, btnSalir, enemigo;
 	private int random;
 	private Graphics pantallaVirtual;
 
@@ -32,7 +32,7 @@ public class Menu extends Canvas{
 
 		titulo = new ImageIcon(getClass().getResource("Botones/Titulo.png")).getImage();
 		btnComenzar = new ImageIcon(getClass().getResource("Botones/Comenzar.png")).getImage();
-		btnControles = new ImageIcon(getClass().getResource("Botones/Controles.png")).getImage();
+		btnAyuda = new ImageIcon(getClass().getResource("Botones/Ayuda.png")).getImage();
 		btnSalir = new ImageIcon(getClass().getResource("Botones/Salir.png")).getImage();
 		enemigo = new ImageIcon(getClass().getResource("Enemigos/Bola"+random+".png")).getImage();
 
@@ -58,7 +58,7 @@ public class Menu extends Canvas{
 		g.drawImage(titulo, 335-250, 25, 500, 70, null);
 
 		g.drawImage(btnComenzar, 50, 140, 175, 50, null);
-		g.drawImage(btnControles, 50, 250, 175, 50, null);
+		g.drawImage(btnAyuda, 50, 250, 175, 50, null);
 		g.drawImage(btnSalir, 50, 360, 175, 50, null);
 
 
@@ -107,13 +107,13 @@ public class Menu extends Canvas{
 	}
 
 
-	public Image getBtnControles() {
-		return btnControles;
+	public Image getbtnAyuda() {
+		return btnAyuda;
 	}
 
 
-	public void setBtnControles(Image btnControles) {
-		this.btnControles = btnControles;
+	public void setbtnAyuda(Image btnAyuda) {
+		this.btnAyuda = btnAyuda;
 	}
 
 
