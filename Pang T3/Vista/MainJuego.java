@@ -43,8 +43,17 @@ public class MainJuego extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		estadoJuego = 1;
+		estadoJuego = 0;
 		
+
+		
+		estadoJuego(estadoJuego);
+		
+		
+		
+	}
+
+	public void estadoJuego(int estadoJuego) {
 		switch (estadoJuego) {
 		case 0:
 			menu = new Menu();
@@ -52,7 +61,7 @@ public class MainJuego extends JFrame {
 			menu.setFocusable(true);
 			break;
 		case 1:
-			zonaJuego = new ZonaJuego();
+			zonaJuego = new ZonaJuego(this);
 			contentPane.add(zonaJuego);
 			zonaJuego.setFocusable(true);
 			zonaJuego.requestFocus();
@@ -61,11 +70,14 @@ public class MainJuego extends JFrame {
 		default:
 			break;
 		}
-		
+	}
 
-		
-		
-		
+	public int getEstadoJuego() {
+		return estadoJuego;
+	}
+
+	public void setEstadoJuego(int estadoJuego) {
+		this.estadoJuego = estadoJuego;
 	}
 
 }

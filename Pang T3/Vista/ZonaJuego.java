@@ -21,7 +21,7 @@ public class ZonaJuego extends Canvas {
 	private URL pop1, pop2, pop3;
 	
 	//CONSTRUCTORES
-	public ZonaJuego(){
+	public ZonaJuego(MainJuego mainJuego){
 		//CARGAR FONDO
 		//fondo = new ImageIcon(getClass().getResource("montaña.jpg")).getImage();
 
