@@ -23,6 +23,14 @@ public class EventosMenu {
 					mainJuego.estadoJuego(1);
 				}else if (rMouse.intersects(rBoton2)) {
 					System.out.println("Controles");
+					
+					if (menu.getEstadoAyuda() == 0) {
+						menu.setEstadoAyuda(1);
+
+					}else if (menu.getEstadoAyuda() == 1) {
+						menu.setEstadoAyuda(0);
+
+					}
 				}else if (rMouse.intersects(rBoton3)) {
 					System.exit(1);
 				}

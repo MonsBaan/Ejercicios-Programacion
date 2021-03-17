@@ -16,9 +16,10 @@ public class Menu extends Canvas{
 	private EventosMenu eventosMenu;
 	private Timer reloj;
 	private double rotacion = 0;
-	private Image fondo, buffer, titulo, btnComenzar, btnAyuda, btnSalir, enemigo;
+	private Image fondo, buffer, titulo, btnComenzar, btnAyuda, btnSalir, enemigo, ayuda;
 	private int random;
 	private Graphics pantallaVirtual;
+	private int estadoAyuda;
 
 
 	public Menu(MainJuego mainJuego) {
@@ -35,11 +36,14 @@ public class Menu extends Canvas{
 		btnAyuda = new ImageIcon(getClass().getResource("Botones/Ayuda.png")).getImage();
 		btnSalir = new ImageIcon(getClass().getResource("Botones/Salir.png")).getImage();
 		enemigo = new ImageIcon(getClass().getResource("Enemigos/Bola"+random+".png")).getImage();
+		ayuda = new ImageIcon(getClass().getResource("Tutorial/Tutorial.png")).getImage();
 
 		//CARGAR EVENTOS
 		eventosMenu = new EventosMenu(this, this.mainJuego);
 
 
+		estadoAyuda = 1;
+		
 		reloj = new Timer(30, new ActionListener() {
 
 			@Override
@@ -56,18 +60,24 @@ public class Menu extends Canvas{
 		super.paint(g);
 		//g.drawImage(imagen, posX, posY, ancho, alto, NULL);
 		g.drawImage(fondo, 0, 0, 700, 515, null);
-		g.drawImage(titulo, 335-250, 25, 500, 70, null);
+		g.drawImage(titulo, 335-250, 0, 500, 70, null);
 
 		g.drawImage(btnComenzar, 50, 140, 175, 50, null);
 		g.drawImage(btnAyuda, 50, 250, 175, 50, null);
 		g.drawImage(btnSalir, 50, 360, 175, 50, null);
 
 
-		Graphics2D gr2=(Graphics2D) g;
-		gr2.translate(500, 260);
-		gr2.rotate(rotacion);
-		gr2.drawImage(enemigo, -100, -95, 200, 200, this);
-		rotacion = rotacion + 0.01;
+
+		if (estadoAyuda == 1) {
+			g.drawImage(ayuda, 250, 75, 420, 385, null);
+
+		}else if (estadoAyuda == 0) {
+			Graphics2D gr2=(Graphics2D) g;
+			gr2.translate(500, 260);
+			gr2.rotate(rotacion);
+			gr2.drawImage(enemigo, -100, -95, 200, 200, this);
+			rotacion = rotacion + 0.01;
+		}
 
 	}
 
@@ -135,5 +145,15 @@ public class Menu extends Canvas{
 
 	public void setReloj(Timer reloj) {
 		this.reloj = reloj;
+	}
+
+
+	public int getEstadoAyuda() {
+		return estadoAyuda;
+	}
+
+
+	public void setEstadoAyuda(int estadoAyuda) {
+		this.estadoAyuda = estadoAyuda;
 	}
 }
