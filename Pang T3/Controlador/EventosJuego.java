@@ -102,7 +102,7 @@ public class EventosJuego {
 					zonaJuego.getArrayEnemigo3().clear();
 
 					zonaJuego.getMainJuego().estadoJuego(0);
-					
+
 					timerPersonaje.stop();
 					timerInvulnerable.stop();
 					break;

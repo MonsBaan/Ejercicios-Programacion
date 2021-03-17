@@ -49,7 +49,7 @@ public class MainJuego extends JFrame {
 		
 		
 		//estadoJuego SE CAMBIA PARA CAMBIAR EL CANVAS
-		estadoJuego = 1;	
+		estadoJuego = 0;	
 		estadoJuego(estadoJuego);
 	}
 
