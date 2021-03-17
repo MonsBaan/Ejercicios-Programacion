@@ -3,18 +3,15 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class MainJuego extends JFrame {
 
 	private JPanel contentPane;
 	private ZonaJuego zonaJuego;
 	private Menu menu;
-	private Timer reloj;
 	private int estadoJuego;//0 - Menu, 1 - Juego
 
 	/**

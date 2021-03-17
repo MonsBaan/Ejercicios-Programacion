@@ -4,14 +4,8 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-/*
- * ---ACCIONES BASICAS---
- * MOVIMIENTO LATERAL
- * 
- * ---ACCION DIFICIL---
- * ESCALERA
- */
-public class Jugador {
+
+public class Jugador extends Thread{
 	private static final int SUELO = 390;
 	//DATOS
 	private Image[] imgD;
@@ -22,9 +16,11 @@ public class Jugador {
 	private boolean pared;
 	
 	private ZonaJuego zonaJuego;
+	private EventosJuego eventosJuego;
 	
-	public Jugador(ZonaJuego zonaJuego) {
+	public Jugador(ZonaJuego zonaJuego, EventosJuego eventosJuego) {
 		this.zonaJuego = zonaJuego;
+		this.eventosJuego = eventosJuego;
 		//CARGAR IMAGENES
 		imgD = new Image [23];
 		imgI = new Image [23];
@@ -50,6 +46,29 @@ public class Jugador {
 
 	}
 	
+	
+	
+	
+	public void run() {
+		super.run();
+		while(true) {
+			if (eventosJuego.getArrayTeclas()[1]==1) {
+				dirH = -1;
+				mover();
+			}else if(eventosJuego.getArrayTeclas()[2]==1){
+				dirH = 1;
+				mover();
+			}
+			
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
 	
 	public void dibujar(Graphics g) {
 		switch (estado) {
@@ -92,18 +111,18 @@ public class Jugador {
 	public void mover() {
 		if (posX+ancho >= zonaJuego.getWidth()-1) {
 			pared = true;
-			if (dirH == -1) {
+			if (dirH == -1) {//EN CASO DE LLEGAR AL BORDE, PARA EVITAR QUEDARSE ATRAPADO POR COLISIONES
 				posX += velocidad*dirH;
-
 			}
 		}else if (posX <= 2) {
 			pared = true;
-
-			if (dirH == 1) {
+			if (dirH == 1) {//EN CASO DE LLEGAR AL BORDE, PARA EVITAR QUEDARSE ATRAPADO POR COLISIONES
 				posX += velocidad*dirH;
 			}
+			
 		}else {
 			pared = false;
+			//SE MUEVE EN LA DIRECCION PULSADA
 			posX += velocidad*dirH;
 			//ANIMACION
 			imgActual=(imgActual+1)%imgD.length;

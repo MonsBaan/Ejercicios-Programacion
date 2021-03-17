@@ -1,5 +1,4 @@
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -11,67 +10,88 @@ import javax.swing.Timer;
 
 import javax.swing.ImageIcon;
 
+@SuppressWarnings("serial")
 public class Menu extends Canvas{
 	private MainJuego mainJuego;
-	private EventosMenu eventosMenu;
-	private Timer reloj;
-	private double rotacion = 0;
+	private Timer reloj, relojPersonaje;
+	private Image[] imgD;
 	private Image fondo, buffer, titulo, btnComenzar, btnAyuda, btnSalir, enemigo, ayuda;
-	private int random;
 	private Graphics pantallaVirtual;
+	private int random;
 	private int estadoAyuda;
+	private int imgActual;
+	private double rotacion = 0;
 
 
 	public Menu(MainJuego mainJuego) {
 		this.mainJuego = mainJuego;
-		//CARGAR FONDO
-		fondo = new ImageIcon(getClass().getResource("Fondo.jpg")).getImage();
+		estadoAyuda = 0; //MANTENER ESTO A 0 PARA QUE EL CUADRO DE AYUDA NO SALTE AUTOMATICAMENTE
+		
+		//CARGAR IMAGENES BOB
+		imgD = new Image [23];
+		for (int i = 0; i < imgD.length; i++) {
+			imgD[i]= new ImageIcon(getClass().getResource("Bob/D"+(i+1)+".png")).getImage();
+		}
+		
+		//RANDOMIZADOR PARA CAMBIARLE EL COLOR A LA BOLA
 		random = (int) (Math.random()*3+1);
-		setBackground(Color.white);
+
+		//CARGAR FONDO
+		fondo = new ImageIcon(getClass().getResource("Fondo.jpg")).getImage();		
+		
 		//CARGAR BOTONES
-
-
 		titulo = new ImageIcon(getClass().getResource("Botones/Titulo.png")).getImage();
 		btnComenzar = new ImageIcon(getClass().getResource("Botones/Comenzar.png")).getImage();
 		btnAyuda = new ImageIcon(getClass().getResource("Botones/Ayuda.png")).getImage();
 		btnSalir = new ImageIcon(getClass().getResource("Botones/Salir.png")).getImage();
 		enemigo = new ImageIcon(getClass().getResource("Enemigos/Bola"+random+".png")).getImage();
 		ayuda = new ImageIcon(getClass().getResource("Tutorial/Tutorial.png")).getImage();
-
-		//CARGAR EVENTOS
-		eventosMenu = new EventosMenu(this, this.mainJuego);
-
-
-		estadoAyuda = 1;
 		
-		reloj = new Timer(30, new ActionListener() {
+		//CARGAR EVENTOS DEL MENU
+		new EventosMenu(this, this.mainJuego);
+		
 
+		//TIMER PARA LA BOLA QUE DA VUELTAS
+		reloj = new Timer(30, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				repaint();
 			}
 		});
 		reloj.start();
+		
+		//TIMER PARA BOB CORRIENDO
+		relojPersonaje = new Timer(10, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				imgActual=(imgActual+1)%imgD.length;
+				repaint();
+			}
+		});
+		relojPersonaje.start();
+
 
 	}
 
 
 	public void paint(Graphics g) {
-		super.paint(g);
-		//g.drawImage(imagen, posX, posY, ancho, alto, NULL);
+		super.paint(g);		
+		//DIBUJAR FONDO Y BOTONES
 		g.drawImage(fondo, 0, 0, 700, 515, null);
 		g.drawImage(titulo, 335-250, 0, 500, 70, null);
-
 		g.drawImage(btnComenzar, 50, 140, 175, 50, null);
 		g.drawImage(btnAyuda, 50, 250, 175, 50, null);
 		g.drawImage(btnSalir, 50, 360, 175, 50, null);
 
-
-
+		//SEGUN EL ESTADO SE MOSTRARÁ LA AYUDA
 		if (estadoAyuda == 1) {
+			//DIBUJAR RECUADRO DE AYUDA
 			g.drawImage(ayuda, 250, 75, 420, 385, null);
+			//DIBUJAR A BOB CORRIENDO
+			g.drawImage(imgD[imgActual], 260, 155, 60, 50, null);
 
 		}else if (estadoAyuda == 0) {
+			//DIBUJA LA BOLA QUE DA VUELTAS
 			Graphics2D gr2=(Graphics2D) g;
 			gr2.translate(500, 260);
 			gr2.rotate(rotacion);
@@ -81,7 +101,8 @@ public class Menu extends Canvas{
 
 	}
 
-	public void update(Graphics g) {		//DOBLE BUFFER
+	//BUFFER DE LA IMAGEN PARA EVITAR PARPADEOS
+	public void update(Graphics g) {
 		buffer = createImage(this.getWidth(), this.getHeight());
 		pantallaVirtual = buffer.getGraphics();
 		paint(pantallaVirtual);

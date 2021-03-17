@@ -1,13 +1,9 @@
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
-import javax.swing.Timer;
 
 public class Enemigo extends Thread{
 
@@ -17,13 +13,12 @@ public class Enemigo extends Thread{
 	private Image imgBola3;
 	private int posX, posY, alto, ancho, velocidad, dirH, dirY;
 	private int tipo; //1 BOLA1  -  2 BOLA2  -  3 BOLA3
-	private double rebote, rotacion;
+	private double rebote;
 	private boolean intersectado;
-	private Timer reloj;
 	
 	public Enemigo(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
-		Random r = new Random();
+		new Random();
 		//CARGAR IMAGEN
 		imgBola1 = new ImageIcon(getClass().getResource("Enemigos/Bola1.png")).getImage();
 		imgBola2 = new ImageIcon(getClass().getResource("Enemigos/Bola2.png")).getImage();
@@ -40,23 +35,23 @@ public class Enemigo extends Thread{
 		case 1:
 			alto = 30;
 			ancho = 30;
-			velocidad = 4;
+			velocidad = 5;
 			intersectado = false;
-			rebote = 10;
+			rebote = 1;
 			break;
 		case 2:
 			alto = 65;
 			ancho = 65;
 			velocidad = 3;
 			intersectado = false;
-			rebote = 10;
+			rebote = 1;
 			break;
 		case 3:
 			alto = 90;
 			ancho = 90;
 			velocidad = 2;
 			intersectado = false;
-			rebote = 10;
+			rebote = 1;
 			break;
 
 		default:
@@ -73,13 +68,13 @@ public class Enemigo extends Thread{
 			}
 				
 			//SISTEMA DE REBOTE
-			posY =  (int) (posY - velocidad - rebote/10);	
+			posY =  (int) (posY - velocidad -rebote/10);	
 				
 			switch (tipo) {
 			case 1:
 				if (rebote <= 0) {
 					if (posY+alto >= zonaJuego.getHeight()) {
-						rebote = 50;
+						rebote = 40;
 					}
 
 				}
@@ -87,7 +82,7 @@ public class Enemigo extends Thread{
 			case 2:
 				if (rebote <= 0) {
 					if (posY+alto >= zonaJuego.getHeight()) {
-						rebote = 30;
+						rebote = 50;
 					}
 
 				}
@@ -95,7 +90,7 @@ public class Enemigo extends Thread{
 			case 3:
 				if (rebote <= 0) {
 					if (posY+alto >= zonaJuego.getHeight()) {
-						rebote = 45;
+						rebote = 60;
 					}
 				}
 				break;

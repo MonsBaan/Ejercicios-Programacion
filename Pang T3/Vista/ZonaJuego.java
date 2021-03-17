@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+@SuppressWarnings("serial")
 public class ZonaJuego extends Canvas {
 	//DATOS
 	private Image fondo;
@@ -15,6 +16,7 @@ public class ZonaJuego extends Canvas {
 	private Graphics pantallaVirtual;
 	private int vidas;
 	private int nivel;
+	private int puntuacion;
 	private SoundEffect se;
 	private ArrayList<Jugador> arrayJugador;
 	private ArrayList<Enemigo> arrayEnemigo1;
@@ -29,7 +31,6 @@ public class ZonaJuego extends Canvas {
 		//CARGAR FONDO
 		fondo = new ImageIcon(getClass().getResource("Fondo.jpg")).getImage();
 
-
 		//CARGAR JUGADOR Y DISPARO
 		vidas = 3;
 		nivel = 1;
@@ -41,6 +42,7 @@ public class ZonaJuego extends Canvas {
 		arrayEnemigo2 = new ArrayList<Enemigo>();
 		arrayEnemigo3 = new ArrayList<Enemigo>();
 
+		//CARGA LOS SONIDOS
 		se = new SoundEffect(this);
 		pop1 = getClass().getResource("Sonidos/Pop1.wav");
 		pop2 = getClass().getResource("Sonidos/Pop2.wav");
@@ -48,12 +50,17 @@ public class ZonaJuego extends Canvas {
 
 		//CARGAR EVENTOS
 		eventosJuego = new EventosJuego(this);
+		
+		//CARGAR PUNTUACION
+		puntuacion = 0;
 	}
 
-	//PAINT Y DOBLE BUFFER
 	public void paint(Graphics g) {
 		super.paint(g);
+		//DIBUJAR FONDO
 		g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
+		
+		//DIBUJA AL JUGADOR
 		if (arrayJugador.size()!=0) {
 			for (Jugador jugador : arrayJugador) {
 				if (eventosJuego.getInvulnerable()!=1) {
@@ -61,21 +68,29 @@ public class ZonaJuego extends Canvas {
 				}
 			}
 		}
+		
+		//DIBUJA AL DISPARO
 		if (arrayDisparo.size()!=0) {
 			for (Disparo disparo : arrayDisparo) {
 				disparo.dibujar(g);
 			}
 		}
+		
+		//DIBUJA AL ENEMIGO DE TIPO 3
 		if (arrayEnemigo1.size()!=0) {
 			for (Enemigo enemigo : arrayEnemigo1) {
 				enemigo.dibujar(g);
 			}
 		}
+		
+		//DIBUJA AL ENEMIGO DE TIPO 2
 		if (arrayEnemigo2.size()!=0) {
 			for (Enemigo enemigo : arrayEnemigo2) {
 				enemigo.dibujar(g);
 			}
 		}
+		
+		//DIBUJA AL ENEMIGO DE TIPO 1
 		if (arrayEnemigo3.size()!=0) {
 			for (Enemigo enemigo : arrayEnemigo3) {
 				enemigo.dibujar(g);
@@ -84,7 +99,9 @@ public class ZonaJuego extends Canvas {
 
 
 	}
-	public void update(Graphics g) {		//DOBLE BUFFER
+	
+	//BUFFER DE LA IMAGEN PARA EVITAR PARPADEOS
+	public void update(Graphics g) {
 		buffer = createImage(this.getWidth(), this.getHeight());
 		pantallaVirtual = buffer.getGraphics();
 		paint(pantallaVirtual);
@@ -219,6 +236,14 @@ public class ZonaJuego extends Canvas {
 
 	public void setMainJuego(MainJuego mainJuego) {
 		this.mainJuego = mainJuego;
+	}
+
+	public int getPuntuacion() {
+		return puntuacion;
+	}
+
+	public void setPuntuacion(int puntuacion) {
+		this.puntuacion = puntuacion;
 	}
 
 }
