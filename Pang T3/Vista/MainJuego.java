@@ -3,14 +3,18 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainJuego extends JFrame {
 
 	private JPanel contentPane;
 	private ZonaJuego zonaJuego;
 	private Menu menu;
+	private Timer reloj;
 	private int estadoJuego;//0 - Menu, 1 - Juego
 
 	/**
@@ -43,24 +47,32 @@ public class MainJuego extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		estadoJuego = 0;
 		
-
-		
+		//estadoJuego SE CAMBIA PARA CAMBIAR EL CANVAS
+		estadoJuego = 1;	
 		estadoJuego(estadoJuego);
-		
-		
-		
 	}
 
 	public void estadoJuego(int estadoJuego) {
+		
 		switch (estadoJuego) {
 		case 0:
+			
+			try {
+				contentPane.remove(zonaJuego);
+			} catch (Exception e) {
+				System.out.println("ZonaJuego no eliminado");
+			}
+			
 			menu = new Menu(this);
 			contentPane.add(menu);
 			menu.setFocusable(true);
+			
+
+
 			break;
-		case 1:
+			
+		case 1:	
 			zonaJuego = new ZonaJuego(this);
 			contentPane.add(zonaJuego);
 			zonaJuego.setFocusable(true);

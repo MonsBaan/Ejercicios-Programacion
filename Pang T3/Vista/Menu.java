@@ -24,7 +24,7 @@ public class Menu extends Canvas{
 	public Menu(MainJuego mainJuego) {
 		this.mainJuego = mainJuego;
 		//CARGAR FONDO
-		//fondo = new ImageIcon(getClass().getResource("montaña.jpg")).getImage();
+		fondo = new ImageIcon(getClass().getResource("Fondo.jpg")).getImage();
 		random = (int) (Math.random()*3+1);
 		setBackground(Color.white);
 		//CARGAR BOTONES
@@ -54,7 +54,8 @@ public class Menu extends Canvas{
 
 	public void paint(Graphics g) {
 		super.paint(g);
-		//g.drawImage(imagen, posX, posY, alto, ancho, NULL);
+		//g.drawImage(imagen, posX, posY, ancho, alto, NULL);
+		g.drawImage(fondo, 0, 0, 700, 515, null);
 		g.drawImage(titulo, 335-250, 25, 500, 70, null);
 
 		g.drawImage(btnComenzar, 50, 140, 175, 50, null);
@@ -124,5 +125,15 @@ public class Menu extends Canvas{
 
 	public void setBtnSalir(Image btnSalir) {
 		this.btnSalir = btnSalir;
+	}
+
+
+	public Timer getReloj() {
+		return reloj;
+	}
+
+
+	public void setReloj(Timer reloj) {
+		this.reloj = reloj;
 	}
 }

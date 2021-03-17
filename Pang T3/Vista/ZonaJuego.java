@@ -4,10 +4,13 @@ import java.awt.Image;
 import java.net.URL;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 public class ZonaJuego extends Canvas {
 	//DATOS
 	private Image fondo;
 	private EventosJuego eventosJuego;
+	private MainJuego mainJuego;
 	private Image buffer;
 	private Graphics pantallaVirtual;
 	private int vidas;
@@ -22,11 +25,13 @@ public class ZonaJuego extends Canvas {
 	
 	//CONSTRUCTORES
 	public ZonaJuego(MainJuego mainJuego){
+		this.mainJuego = mainJuego;
 		//CARGAR FONDO
-		//fondo = new ImageIcon(getClass().getResource("montaña.jpg")).getImage();
+		fondo = new ImageIcon(getClass().getResource("Fondo.jpg")).getImage();
+
 
 		//CARGAR JUGADOR Y DISPARO
-		vidas = 3;
+		vidas = 1;
 		nivel = 1;
 		arrayJugador = new ArrayList<Jugador>();
 		arrayDisparo = new ArrayList<Disparo>();
@@ -48,7 +53,7 @@ public class ZonaJuego extends Canvas {
 	//PAINT Y DOBLE BUFFER
 	public void paint(Graphics g) {
 		super.paint(g);
-		//g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
+		g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
 		if (arrayJugador.size()!=0) {
 			for (Jugador jugador : arrayJugador) {
 				if (eventosJuego.getInvulnerable()!=1) {
@@ -208,6 +213,12 @@ public class ZonaJuego extends Canvas {
 	public void setPop3(URL pop3) {
 		this.pop3 = pop3;
 	}
+	public MainJuego getMainJuego() {
+		return mainJuego;
+	}
 
+	public void setMainJuego(MainJuego mainJuego) {
+		this.mainJuego = mainJuego;
+	}
 
 }

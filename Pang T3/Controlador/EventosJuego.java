@@ -85,7 +85,14 @@ public class EventosJuego {
 					zonaJuego.getArrayEnemigo1().clear();
 					zonaJuego.getArrayEnemigo2().clear();
 					zonaJuego.getArrayEnemigo3().clear();
+					
+					zonaJuego.getMainJuego().setEstadoJuego(0);
+					zonaJuego.getMainJuego().estadoJuego(0);
+					
 					timerPersonaje.stop();
+					timerInvulnerable.stop();
+					
+
 					break;
 				case 2:
 					System.out.println("Victoria");
@@ -95,6 +102,8 @@ public class EventosJuego {
 					zonaJuego.getArrayEnemigo2().clear();
 					zonaJuego.getArrayEnemigo3().clear();
 					timerPersonaje.stop();
+
+					zonaJuego.getMainJuego().setEstadoJuego(0);
 
 					break;
 
