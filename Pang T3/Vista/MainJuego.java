@@ -66,15 +66,21 @@ public class MainJuego extends JFrame {
 			
 			menu = new Menu(this);
 			contentPane.add(menu);
+			contentPane.revalidate();
 			menu.setFocusable(true);
-			
-
-
+			menu.requestFocus();
 			break;
 			
 		case 1:	
+			try {
+				contentPane.remove(menu);
+			} catch (Exception e) {
+				System.out.println("Menu no eliminado");
+			}
+			
 			zonaJuego = new ZonaJuego(this);
 			contentPane.add(zonaJuego);
+			contentPane.revalidate();
 			zonaJuego.setFocusable(true);
 			zonaJuego.requestFocus();
 			break;

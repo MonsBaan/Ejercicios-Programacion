@@ -20,11 +20,10 @@ public class EventosMenu {
 				rBoton3 = new Rectangle(menu.getBoundsbtnSalir());
 				
 				if (rMouse.intersects(rBoton1)) {
-					System.out.println("Comenzar");
+					mainJuego.estadoJuego(1);
 				}else if (rMouse.intersects(rBoton2)) {
 					System.out.println("Controles");
 				}else if (rMouse.intersects(rBoton3)) {
-					System.out.println("Cerrar");
 					System.exit(1);
 				}
 				

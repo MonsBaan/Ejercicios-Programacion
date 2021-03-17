@@ -86,7 +86,6 @@ public class EventosJuego {
 					zonaJuego.getArrayEnemigo2().clear();
 					zonaJuego.getArrayEnemigo3().clear();
 					
-					zonaJuego.getMainJuego().setEstadoJuego(0);
 					zonaJuego.getMainJuego().estadoJuego(0);
 					
 					timerPersonaje.stop();
@@ -101,10 +100,11 @@ public class EventosJuego {
 					zonaJuego.getArrayEnemigo1().clear();
 					zonaJuego.getArrayEnemigo2().clear();
 					zonaJuego.getArrayEnemigo3().clear();
+
+					zonaJuego.getMainJuego().estadoJuego(0);
+					
 					timerPersonaje.stop();
-
-					zonaJuego.getMainJuego().setEstadoJuego(0);
-
+					timerInvulnerable.stop();
 					break;
 
 				default:
