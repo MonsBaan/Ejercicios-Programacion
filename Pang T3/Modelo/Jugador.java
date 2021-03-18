@@ -29,7 +29,7 @@ public class Jugador extends Thread{
 		//VALORES
 		alto = 70;
 		ancho = 90;
-		posX = 97;
+		posX = 280;
 		posY = SUELO;
 		estado = 0; //0- SIN MOVIMIENTO, 1- MOVIENDOSE, 2 - GOLPEADO
 		dirH = 1; //-1 IZQUIERDA, 1 DERECHA

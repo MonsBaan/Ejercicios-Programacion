@@ -3,12 +3,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class EventosMenu {
-	private Menu menu;
-	private MainJuego mainJuego;
-
 	public EventosMenu(Menu menu, MainJuego mainJuego) {
-		this.menu = menu;
-		this.mainJuego = mainJuego;
 		menu.addMouseListener(new MouseListener() {
 
 			@Override

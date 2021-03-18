@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.Timer;
 
 public class EventosJuego {
@@ -20,16 +21,18 @@ public class EventosJuego {
 	public EventosJuego(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
 
+
 		startRonda();
 
 	}
 
+	@SuppressWarnings("unused")
 	public void startRonda() {
 		//ARRAY TECLAS Y INICIALIZACION
 		Jugador jugador;
 		jugador = new Jugador(zonaJuego, this);
 		zonaJuego.getArrayJugador().add(jugador);
-
+		
 		arrayTeclas = new int[5];
 		for (int i : arrayTeclas) {
 			i = 0;
@@ -78,6 +81,9 @@ public class EventosJuego {
 
 				switch (checkFinJuego()) {
 				case 1:
+					timerPersonaje.stop();
+					timerInvulnerable.stop();
+					
 					System.out.println("Derrota");
 					zonaJuego.getArrayJugador().clear();
 					zonaJuego.getArrayDisparo().clear();
@@ -87,10 +93,6 @@ public class EventosJuego {
 
 					System.out.println("Tu puntuacion es: "+zonaJuego.getPuntuacion());
 
-					timerPersonaje.stop();
-					timerInvulnerable.stop();
-					
-
 					zonaJuego.getMainJuego().estadoJuego(0);
 
 
@@ -99,6 +101,8 @@ public class EventosJuego {
 					break;
 				case 2:
 					System.out.println("Nivel Completo");
+					timerInvulnerable.stop();
+
 					zonaJuego.setNivel(zonaJuego.getNivel()+1);
 					zonaJuego.setVidas(zonaJuego.getVidas()+1);
 
@@ -108,6 +112,8 @@ public class EventosJuego {
 					zonaJuego.getArrayEnemigo2().clear();
 					zonaJuego.getArrayEnemigo3().clear();
 
+					invulnerable = false;
+					
 					startRonda();
 					break;
 
@@ -164,6 +170,7 @@ public class EventosJuego {
 			public void keyReleased(KeyEvent e) {
 				if (zonaJuego.getArrayJugador().size() != 0) {
 					for (int i = 0; i < zonaJuego.getArrayJugador().size(); i++) {
+						
 						if (arrayTeclas[0]!=1) {
 							arrayTeclas[1]=0;
 							arrayTeclas[2]=0;
@@ -186,7 +193,6 @@ public class EventosJuego {
 						for (int i = 0; i < zonaJuego.getArrayJugador().size(); i++) {
 							zonaJuego.getArrayJugador().get(i).setEstado(1);
 							arrayTeclas[1]=1;
-							arrayTeclas[2]=0;
 						}
 					}
 
@@ -196,7 +202,6 @@ public class EventosJuego {
 						for (int i = 0; i < zonaJuego.getArrayJugador().size(); i++) {
 							zonaJuego.getArrayJugador().get(i).setEstado(1);
 							arrayTeclas[1]=1;
-							arrayTeclas[2]=0;
 						}
 					}
 
@@ -206,7 +211,6 @@ public class EventosJuego {
 					if (zonaJuego.getArrayJugador().size() != 0) {
 						for (int i = 0; i < zonaJuego.getArrayJugador().size(); i++) {
 							zonaJuego.getArrayJugador().get(i).setEstado(1);
-							arrayTeclas[1]=0;
 							arrayTeclas[2]=1;	
 						}
 					}
@@ -216,7 +220,6 @@ public class EventosJuego {
 					if (zonaJuego.getArrayJugador().size() != 0) {
 						for (int i = 0; i < zonaJuego.getArrayJugador().size(); i++) {
 							zonaJuego.getArrayJugador().get(i).setEstado(1);
-							arrayTeclas[1]=0;
 							arrayTeclas[2]=1;
 						}
 					}
@@ -253,14 +256,6 @@ public class EventosJuego {
 	}
 
 
-
-	public int[] getArrayTeclas() {
-		return arrayTeclas;
-	}
-
-	public void setArrayTeclas(int[] arrayTeclas) {
-		this.arrayTeclas = arrayTeclas;
-	}
 
 	//COMPROBAR COLISION DE UNA PELOTA CON EL JUGADOR
 	public void checkColisionJugador() {
@@ -340,7 +335,7 @@ public class EventosJuego {
 									zonaJuego.getArrayEnemigo2().add(bolaNew);
 									bolaNew.start();
 								}
-								zonaJuego.setPuntuacion(zonaJuego.getPuntuacion()+1);
+								zonaJuego.setPuntuacion(zonaJuego.getPuntuacion()+100);
 								zonaJuego.getSe().setFile(zonaJuego.getPop3());
 								zonaJuego.getSe().play();
 								zonaJuego.getArrayEnemigo1().remove(enemigoAct);//SE ELIMINA EL ENEMIGO INTERSECTADO
@@ -372,7 +367,7 @@ public class EventosJuego {
 									zonaJuego.getArrayEnemigo3().add(bolaNew);
 									bolaNew.start();
 								}
-								zonaJuego.setPuntuacion(zonaJuego.getPuntuacion()+1);
+								zonaJuego.setPuntuacion(zonaJuego.getPuntuacion()+150);
 								zonaJuego.getSe().setFile(zonaJuego.getPop2());
 								zonaJuego.getSe().play();
 								zonaJuego.getArrayEnemigo2().remove(enemigoAct);//SE ELIMINA EL ENEMIGO INTERSECTADO
@@ -389,8 +384,9 @@ public class EventosJuego {
 						for (int enemigoAct = 0; enemigoAct < zonaJuego.getArrayEnemigo3().size(); enemigoAct++) {
 							Rectangle Rbola = zonaJuego.getArrayEnemigo3().get(enemigoAct).getBounds();//SE CREA UN RECTANGULO EN CADA BOLA EXISTENTE EN EL ARRAYLIST
 							if (Rdisparo.intersects(Rbola)) {
+								Rdisparo.setBounds(5000, 5000, 1, 1);
 								zonaJuego.getArrayDisparo().remove(disparoAct);//SE ELIMINA EL DISPARO EN CASO DE SER INTERSECTADO
-								zonaJuego.setPuntuacion(zonaJuego.getPuntuacion()+1);
+								zonaJuego.setPuntuacion(zonaJuego.getPuntuacion()+200);
 								zonaJuego.getSe().setFile(zonaJuego.getPop1());
 								zonaJuego.getSe().play();
 								zonaJuego.getArrayEnemigo3().remove(enemigoAct);//SE ELIMINA EL ENEMIGO INTERSECTADO
@@ -429,7 +425,13 @@ public class EventosJuego {
 		this.parpadeo = invulnerable;
 	}
 
+	public int[] getArrayTeclas() {
+		return arrayTeclas;
+	}
 
+	public void setArrayTeclas(int[] arrayTeclas) {
+		this.arrayTeclas = arrayTeclas;
+	}
 
 
 

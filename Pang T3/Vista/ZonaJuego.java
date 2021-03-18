@@ -1,4 +1,6 @@
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.net.URL;
@@ -12,7 +14,7 @@ public class ZonaJuego extends Canvas {
 	private Image fondo;
 	private EventosJuego eventosJuego;
 	private MainJuego mainJuego;
-	private Image buffer;
+	private Image buffer, bobVida, bolindrongos;
 	private Graphics pantallaVirtual;
 	private int vidas;
 	private int nivel;
@@ -24,12 +26,15 @@ public class ZonaJuego extends Canvas {
 	private ArrayList<Enemigo> arrayEnemigo3;
 	private ArrayList<Disparo> arrayDisparo;
 	private URL pop1, pop2, pop3;
-	
 	//CONSTRUCTORES
 	public ZonaJuego(MainJuego mainJuego){
 		this.mainJuego = mainJuego;
-		//CARGAR FONDO
+		//CARGAR IMAGEN
 		fondo = new ImageIcon(getClass().getResource("Fondo.jpg")).getImage();
+		bobVida = new ImageIcon(getClass().getResource("Bob/D0.png")).getImage();
+		bolindrongos = new ImageIcon(getClass().getResource("Tutorial/Bolindrongos.png")).getImage();
+		
+		
 
 		//CARGAR JUGADOR Y DISPARO
 		vidas = 3;
@@ -53,10 +58,17 @@ public class ZonaJuego extends Canvas {
 		
 		//CARGAR PUNTUACION
 		puntuacion = 0;
+		
 	}
 
 	public void paint(Graphics g) {
 		super.paint(g);
+		//CARGAR FUENTE
+		Font font = new Font("Impact", Font.PLAIN, 35);
+	    g.setFont(font);
+	    g.setColor(Color.black);
+
+	    
 		//DIBUJAR FONDO
 		g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(), null);
 		
@@ -96,8 +108,15 @@ public class ZonaJuego extends Canvas {
 				enemigo.dibujar(g);
 			}
 		}
+		
+		g.drawImage(bobVida, 10, 10, 60, 50, null);
 
-
+		g.drawString(getVidas() +"", 75, 50);
+		
+		g.drawImage(bolindrongos, 450, 10, 50, 50, null);
+		
+		g.drawString(""+getPuntuacion(), 510, 50);
+		
 	}
 	
 	//BUFFER DE LA IMAGEN PARA EVITAR PARPADEOS

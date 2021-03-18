@@ -1,10 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class MainJuego extends JFrame {
@@ -35,7 +35,7 @@ public class MainJuego extends JFrame {
 	 */
 	public MainJuego() {
 		setTitle("Chaka-Pang");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainJuego.class.getResource("/Enemigos/Bola3.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainJuego.class.getResource("/Tutorial/Bolindrongos.png")));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 515);
