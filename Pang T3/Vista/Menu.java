@@ -45,7 +45,7 @@ public class Menu extends Canvas{
 		btnSalir = new ImageIcon(getClass().getResource("Botones/Salir.png")).getImage();
 		enemigo = new ImageIcon(getClass().getResource("Enemigos/Bola"+random+".png")).getImage();
 		ayuda = new ImageIcon(getClass().getResource("Tutorial/Tutorial.png")).getImage();
-		
+
 		//CARGAR EVENTOS DEL MENU
 		new EventosMenu(this, this.mainJuego);
 		
@@ -55,6 +55,7 @@ public class Menu extends Canvas{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				repaint();
+
 			}
 		});
 		reloj.start();
@@ -175,5 +176,15 @@ public class Menu extends Canvas{
 
 	public void setEstadoAyuda(int estadoAyuda) {
 		this.estadoAyuda = estadoAyuda;
+	}
+
+
+	public Timer getRelojPersonaje() {
+		return relojPersonaje;
+	}
+
+
+	public void setRelojPersonaje(Timer relojPersonaje) {
+		this.relojPersonaje = relojPersonaje;
 	}
 }

@@ -16,9 +16,7 @@ public class EventosMenu {
 				
 				if (rMouse.intersects(rBoton1)) {
 					mainJuego.estadoJuego(1);
-				}else if (rMouse.intersects(rBoton2)) {
-					System.out.println("Controles");
-					
+				}else if (rMouse.intersects(rBoton2)) {					
 					if (menu.getEstadoAyuda() == 0) {
 						menu.setEstadoAyuda(1);
 

@@ -1,7 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.net.URL;
+import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,6 +16,8 @@ public class MainJuego extends JFrame {
 	private JPanel contentPane;
 	private ZonaJuego zonaJuego;
 	private Menu menu;
+	private URL[] musica;
+	private Musica m;
 	private int estadoJuego;//0 - Menu, 1 - Juego
 
 	/**
@@ -44,6 +50,16 @@ public class MainJuego extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
+		musica = new URL[5];
+
+		for (int i = 0; i < musica.length; i++) {
+			musica[i]= getClass().getResource("Sonidos/Musica"+(i+1)+".wav");
+		}
+		m = new Musica(this);
+		
+		m.setFile(musica[2]);
+		m.play();
+
 		
 		//estadoJuego SE CAMBIA PARA CAMBIAR EL CANVAS
 		estadoJuego = 0;	
@@ -70,6 +86,8 @@ public class MainJuego extends JFrame {
 			
 		case 1:	
 			try {
+				menu.getReloj().stop();
+				menu.getRelojPersonaje().stop();
 				contentPane.remove(menu);
 			} catch (Exception e) {
 				System.out.println("Menu no eliminado");

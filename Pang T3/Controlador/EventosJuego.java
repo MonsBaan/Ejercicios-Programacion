@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class EventosJuego {
@@ -11,27 +12,86 @@ public class EventosJuego {
 	private int[] arrayTeclas; //0 - Disparar, 1 - Izquierda, 2 - Derecha
 	private boolean intersectado = false;
 	private boolean invulnerable = false;
+	private boolean finRonda = false;
 	private int parpadeo = 0;//0 - Escondido, 1 - Dibujado
 	private int contInvulnerable = 0;
 
 
-	private Timer timerPersonaje;
-	private Timer timerInvulnerable;
+	private Timer timerPersonaje, timerCheck, timerInvulnerable;
 
 	public EventosJuego(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
-
+		//ARRAY TECLAS Y INICIALIZACION
+		Jugador jugador;
+		jugador = new Jugador(zonaJuego, this);
+		zonaJuego.getArrayJugador().add(jugador);
+		
+		jugador.start();
 
 		startRonda();
+
+		timerCheck = new Timer(10, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				switch (checkFinJuego()) {
+				case 1:
+					timerPersonaje.stop();
+					timerInvulnerable.stop();
+					
+					System.out.println("Derrota");
+					zonaJuego.getArrayJugador().clear();
+					zonaJuego.getArrayDisparo().clear();
+					zonaJuego.getArrayEnemigo1().clear();
+					zonaJuego.getArrayEnemigo2().clear();
+					zonaJuego.getArrayEnemigo3().clear();
+
+					JOptionPane.showMessageDialog(zonaJuego, "Fin del Juego ");
+					JOptionPane.showInputDialog("Tu puntuacion es: "+zonaJuego.getPuntuacion() +"\n Introduce tu nombre:");
+
+					zonaJuego.getMainJuego().estadoJuego(0);
+
+
+
+
+					break;
+				case 2:
+					System.out.println("Nivel Completo");
+					timerInvulnerable.stop();
+
+					zonaJuego.setNivel(zonaJuego.getNivel()+1);
+					zonaJuego.setVidas(zonaJuego.getVidas()+1);
+
+					zonaJuego.getArrayEnemigo1().clear();
+					zonaJuego.getArrayEnemigo2().clear();
+					zonaJuego.getArrayEnemigo3().clear();
+
+					invulnerable = false;
+					
+					startRonda();
+					
+					break;
+
+				default:
+					break;
+				}
+				
+				
+			}
+		});
+		
+		timerCheck.start();
 
 	}
 
 	@SuppressWarnings("unused")
 	public void startRonda() {
-		//ARRAY TECLAS Y INICIALIZACION
-		Jugador jugador;
-		jugador = new Jugador(zonaJuego, this);
-		zonaJuego.getArrayJugador().add(jugador);
+		if (finRonda) {
+			finRonda = false;
+			System.out.println(finRonda);
+		}
+		
+
 		
 		arrayTeclas = new int[5];
 		for (int i : arrayTeclas) {
@@ -52,8 +112,6 @@ public class EventosJuego {
 			bola.start();
 		}
 
-		jugador.start();
-
 		//TIMER PERSONAJE
 		timerPersonaje = new Timer(10, new ActionListener() {
 			@Override
@@ -73,52 +131,7 @@ public class EventosJuego {
 							timerInvulnerable.start();
 							intersectado = false;
 						}
-
-
-
 					}
-				}
-
-				switch (checkFinJuego()) {
-				case 1:
-					timerPersonaje.stop();
-					timerInvulnerable.stop();
-					
-					System.out.println("Derrota");
-					zonaJuego.getArrayJugador().clear();
-					zonaJuego.getArrayDisparo().clear();
-					zonaJuego.getArrayEnemigo1().clear();
-					zonaJuego.getArrayEnemigo2().clear();
-					zonaJuego.getArrayEnemigo3().clear();
-
-					System.out.println("Tu puntuacion es: "+zonaJuego.getPuntuacion());
-
-					zonaJuego.getMainJuego().estadoJuego(0);
-
-
-
-
-					break;
-				case 2:
-					System.out.println("Nivel Completo");
-					timerInvulnerable.stop();
-
-					zonaJuego.setNivel(zonaJuego.getNivel()+1);
-					zonaJuego.setVidas(zonaJuego.getVidas()+1);
-
-					zonaJuego.getArrayJugador().clear();
-					zonaJuego.getArrayDisparo().clear();
-					zonaJuego.getArrayEnemigo1().clear();
-					zonaJuego.getArrayEnemigo2().clear();
-					zonaJuego.getArrayEnemigo3().clear();
-
-					invulnerable = false;
-					
-					startRonda();
-					break;
-
-				default:
-					break;
 				}
 
 
@@ -242,10 +255,14 @@ public class EventosJuego {
 							arrayTeclas[0]=1;
 						}
 					}
-
-
 					break;
-
+					
+				case KeyEvent.VK_ESCAPE:
+				
+					
+					break;
+					
+					
 				default:
 					break;
 				}
@@ -404,13 +421,19 @@ public class EventosJuego {
 		int enemigos1 = zonaJuego.getArrayEnemigo1().size();
 		int enemigos2 = zonaJuego.getArrayEnemigo2().size();
 		int enemigos3 = zonaJuego.getArrayEnemigo3().size();
+		
+		if (finRonda) {
+			return 0;
+		}
 
 		if (vidas <= 0) {
+			finRonda = true;
 			return 1;
 		}
 
+			
 		if (enemigos1 == 0 && enemigos2 == 0 && enemigos3 == 0) {
-
+			finRonda = true;
 			return 2;
 		}
 

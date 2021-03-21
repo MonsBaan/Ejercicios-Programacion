@@ -8,25 +8,23 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-@SuppressWarnings("serial")
 public class ZonaJuego extends Canvas {
-	//DATOS
-	private Image fondo;
-	private EventosJuego eventosJuego;
+
 	private MainJuego mainJuego;
-	private Image buffer, bobVida, bolindrongos;
+	private EventosJuego eventosJuego;
+	private Image fondo, buffer, bobVida, bolindrongos;
 	private Graphics pantallaVirtual;
 	private int vidas;
 	private int nivel;
 	private int puntuacion;
-	private SoundEffect se;
 	private ArrayList<Jugador> arrayJugador;
 	private ArrayList<Enemigo> arrayEnemigo1;
 	private ArrayList<Enemigo> arrayEnemigo2;
 	private ArrayList<Enemigo> arrayEnemigo3;
 	private ArrayList<Disparo> arrayDisparo;
 	private URL pop1, pop2, pop3;
-	//CONSTRUCTORES
+	private SoundEffect se;
+	
 	public ZonaJuego(MainJuego mainJuego){
 		this.mainJuego = mainJuego;
 		//CARGAR IMAGEN
@@ -37,7 +35,7 @@ public class ZonaJuego extends Canvas {
 		
 
 		//CARGAR JUGADOR Y DISPARO
-		vidas = 3;
+		vidas = 1;
 		nivel = 1;
 		arrayJugador = new ArrayList<Jugador>();
 		arrayDisparo = new ArrayList<Disparo>();
