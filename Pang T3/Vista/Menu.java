@@ -14,7 +14,7 @@ public class Menu extends Canvas{
 	private MainJuego mainJuego;
 	private Timer reloj, relojPersonaje;
 	private Image[] imgD;
-	private Image fondo, buffer, titulo, btnComenzar, btnAyuda, btnSalir, enemigo, ayuda;
+	private Image fondo, buffer, titulo, btnComenzar, btnAyuda, btnSalir, btnPuntuaciones, enemigo, ayuda;
 	private Graphics pantallaVirtual;
 	private int random;
 	private int estadoAyuda;
@@ -45,6 +45,7 @@ public class Menu extends Canvas{
 		btnSalir = new ImageIcon(getClass().getResource("Botones/Salir.png")).getImage();
 		enemigo = new ImageIcon(getClass().getResource("Enemigos/Bola"+random+".png")).getImage();
 		ayuda = new ImageIcon(getClass().getResource("Tutorial/Tutorial.png")).getImage();
+		btnPuntuaciones = new ImageIcon(getClass().getResource("Bob/D0.png")).getImage();
 
 		//CARGAR EVENTOS DEL MENU
 		new EventosMenu(this, this.mainJuego);
@@ -55,7 +56,6 @@ public class Menu extends Canvas{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				repaint();
-
 			}
 		});
 		reloj.start();
@@ -79,9 +79,12 @@ public class Menu extends Canvas{
 		//DIBUJAR FONDO Y BOTONES
 		g.drawImage(fondo, 0, 0, 700, 515, null);
 		g.drawImage(titulo, 335-250, 0, 500, 70, null);
-		g.drawImage(btnComenzar, 50, 140, 175, 50, null);
-		g.drawImage(btnAyuda, 50, 250, 175, 50, null);
-		g.drawImage(btnSalir, 50, 360, 175, 50, null);
+		
+		g.drawImage(btnComenzar, 50, 120, 175, 50, null);
+		g.drawImage(btnAyuda, 50, 220, 175, 50, null);
+		g.drawImage(btnSalir, 50, 320, 175, 50, null);
+
+		g.drawImage(btnPuntuaciones, 580, 15, 70, 50, null);
 
 		//SEGUN EL ESTADO SE MOSTRARÁ LA AYUDA
 		if (estadoAyuda == 1) {
@@ -117,17 +120,26 @@ public class Menu extends Canvas{
 	
 	//GETTERS Y SETTERS
 	public Rectangle getBoundsbtnComenzar() {
-		return new Rectangle(50, 140, 175, 50);
+		return new Rectangle(50, 120, 175, 50);
 		
 	}
 	public Rectangle getBoundsbtnControles() {
-		return new Rectangle(50, 250, 175, 50);
+		return new Rectangle(50, 220, 175, 50);
 		
 	}
 	public Rectangle getBoundsbtnSalir() {
-		return new Rectangle(50, 360, 175, 50);
+		return new Rectangle(50, 320, 175, 50);
 		
 	}
+	public Rectangle getBoundsbtnPuntuaciones() {
+		return new Rectangle(580, 15, 70, 50);
+		
+	}
+	
+	
+	
+
+	
 	
 	public Image getBtnComenzar() {
 		return btnComenzar;

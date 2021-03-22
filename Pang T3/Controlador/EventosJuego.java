@@ -3,6 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -18,6 +21,7 @@ public class EventosJuego {
 
 
 	private Timer timerPersonaje, timerCheck, timerInvulnerable;
+	private String nombreJugador;
 
 	public EventosJuego(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
@@ -45,9 +49,22 @@ public class EventosJuego {
 					zonaJuego.getArrayEnemigo1().clear();
 					zonaJuego.getArrayEnemigo2().clear();
 					zonaJuego.getArrayEnemigo3().clear();
-
-					JOptionPane.showMessageDialog(zonaJuego, "Fin del Juego ");
-					JOptionPane.showInputDialog("Tu puntuacion es: "+zonaJuego.getPuntuacion() +"\n Introduce tu nombre:");
+	
+					
+					JOptionPane.showMessageDialog(zonaJuego, "Fin del Juego"); 
+					nombreJugador = JOptionPane.showInputDialog(zonaJuego, "Tu puntuacion es: " + zonaJuego.getPuntuacion() + "\n Introduce tu nombre: "); 
+					try { 
+						FileWriter puntuaciones = new FileWriter("puntuaciones.txt", true); 
+							puntuaciones.write("\n" + nombreJugador + " : " + zonaJuego.getPuntuacion()); 
+						 
+						puntuaciones.close(); 
+					} catch (FileNotFoundException e) { 
+						// TODO Auto-generated catch block 
+						e.printStackTrace(); 
+					} catch (IOException e) { 
+						// TODO Auto-generated catch block 
+						e.printStackTrace(); 
+					} 
 
 					zonaJuego.getMainJuego().estadoJuego(0);
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+@SuppressWarnings("serial")
 public class ZonaJuego extends Canvas {
 
 	private MainJuego mainJuego;
@@ -35,7 +36,7 @@ public class ZonaJuego extends Canvas {
 		
 
 		//CARGAR JUGADOR Y DISPARO
-		vidas = 1;
+		vidas = 3;
 		nivel = 1;
 		arrayJugador = new ArrayList<Jugador>();
 		arrayDisparo = new ArrayList<Disparo>();
