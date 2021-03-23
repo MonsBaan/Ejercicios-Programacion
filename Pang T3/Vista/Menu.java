@@ -45,7 +45,7 @@ public class Menu extends Canvas{
 		btnSalir = new ImageIcon(getClass().getResource("Botones/Salir.png")).getImage();
 		enemigo = new ImageIcon(getClass().getResource("Enemigos/Bola"+random+".png")).getImage();
 		ayuda = new ImageIcon(getClass().getResource("Tutorial/Tutorial.png")).getImage();
-		btnPuntuaciones = new ImageIcon(getClass().getResource("Bob/D0.png")).getImage();
+		btnPuntuaciones = new ImageIcon(getClass().getResource("Botones/Puntuaciones.png")).getImage();
 
 		//CARGAR EVENTOS DEL MENU
 		new EventosMenu(this, this.mainJuego);
@@ -84,7 +84,7 @@ public class Menu extends Canvas{
 		g.drawImage(btnAyuda, 50, 220, 175, 50, null);
 		g.drawImage(btnSalir, 50, 320, 175, 50, null);
 
-		g.drawImage(btnPuntuaciones, 580, 15, 70, 50, null);
+		g.drawImage(btnPuntuaciones, 570, 15, 70, 75, null);
 
 		//SEGUN EL ESTADO SE MOSTRARÁ LA AYUDA
 		if (estadoAyuda == 1) {
