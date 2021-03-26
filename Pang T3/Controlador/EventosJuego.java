@@ -473,6 +473,14 @@ public class EventosJuego {
 		this.arrayTeclas = arrayTeclas;
 	}
 
+	public Timer getTimerCheck() {
+		return timerCheck;
+	}
+
+	public void setTimerCheck(Timer timerCheck) {
+		this.timerCheck = timerCheck;
+	}
+
 
 
 

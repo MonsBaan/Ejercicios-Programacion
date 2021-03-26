@@ -36,7 +36,7 @@ public class ZonaJuego extends Canvas {
 		
 
 		//CARGAR JUGADOR Y DISPARO
-		vidas = 3;
+		vidas = 0;
 		nivel = 1;
 		arrayJugador = new ArrayList<Jugador>();
 		arrayDisparo = new ArrayList<Disparo>();

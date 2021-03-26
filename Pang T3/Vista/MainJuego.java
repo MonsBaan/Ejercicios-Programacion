@@ -69,6 +69,7 @@ public class MainJuego extends JFrame {
 			
 			try {
 				contentPane.remove(zonaJuego);
+				zonaJuego.getEventosJuego().getTimerCheck().stop();
 			} catch (Exception e) {
 				System.out.println("ZonaJuego no eliminado");
 			}
