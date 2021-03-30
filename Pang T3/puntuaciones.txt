@@ -1,5 +1,3 @@
 Ibai : 9650
 Christian : 3400
-Prueba : 12332
-Prueba2 : 15
-Prueba3 : 5000
+Hoy Soy Manco : 5500

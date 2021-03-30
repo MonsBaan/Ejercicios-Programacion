@@ -5,19 +5,29 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class EventosMenu {
 	private Rectangle rMouse, rBoton1, rBoton2, rBoton3, rBoton4;
+	private ArrayList<String> listaPuntuaciones;
+	private ArrayList<Number> listaPuntos;
+	private int[] arrayPuntuaciones;
+	private int aux;
 	private String p = "";
 	private String puntuacionesTotal = "";
+	private boolean nombres = true;
 
 	public EventosMenu(Menu menu, MainJuego mainJuego) {
+		
+		listaPuntuaciones = new ArrayList<String>();
+		listaPuntos = new ArrayList<Number>();
 		
 		menu.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
+
 				rMouse = new Rectangle(e.getX(), e.getY(), 1, 1);
 				rBoton1 = new Rectangle(menu.getBoundsbtnComenzar());
 				rBoton2 = new Rectangle(menu.getBoundsbtnControles());
@@ -47,23 +57,63 @@ public class EventosMenu {
 					    	if (p.equals("null")) {
 								
 							}else {
-								puntuacionesTotal = puntuacionesTotal + p +" \n";		
+								listaPuntuaciones.add(p);
 							}
 					      }
 					      b.close();
 						
 					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+
+					arrayPuntuaciones = new int[listaPuntuaciones.size()];
+					
+					//SEPARA LAS PUNTUACIONES
+					for (String string : listaPuntuaciones) {
+						for (String string2 : string.split(" : ")) {
+							if (nombres) {
+ 								nombres = false;
+							}else {
+								listaPuntos.add(Integer.parseInt(string2));
+								nombres = true;
+							}
+						}
+					}
+					
+					//INSERTA EN UN ARRAY TODAS LAS PUNTUACIONES
+					for (int i = 0; i < arrayPuntuaciones.length; i++) {
+						arrayPuntuaciones[i]= (int) listaPuntos.get(i);
+					}
+					
+					//ORDENAR ARRAY DE PUNTUACIONES
+					for (int i = 0; i < arrayPuntuaciones.length-1; i++) {
+						for (int j = 0; j < arrayPuntuaciones.length-1-i; j++) {
+							if (arrayPuntuaciones[j] < arrayPuntuaciones[j+1]) {
+								aux = arrayPuntuaciones[j+1];
+								arrayPuntuaciones[j+1] = arrayPuntuaciones[j];
+								arrayPuntuaciones[j] = aux;
+							}
+						}
+					}
+					
+					//EMPAREJAR LAS PUNTUACIONES ORDENADAS CON LA LISTA DE PUNTUACIONES
+					for (int i = 0; i < arrayPuntuaciones.length; i++) {
+						for (int j = 0; j < listaPuntuaciones.size(); j++) {
+							if (listaPuntuaciones.get(j).contains(" : "+arrayPuntuaciones[i])) {
+								puntuacionesTotal += listaPuntuaciones.get(j) + "\n";
+								listaPuntuaciones.set(j, "");
+							}
+						}
+					}
+					
+					
+					
 
 
 					
 					JOptionPane.showMessageDialog(mainJuego, puntuacionesTotal);
-					puntuacionesTotal = "";
 				}
 				
 			}

@@ -16,9 +16,12 @@ public class OrdenarArray {
 			array20[i]= (int)(Math.random()*100);
 			System.out.print(array20[i]+" ");
 		}
+		
 		for (int i = 0; i < array20.length-1; i++) {
+			
 			for (int j = 0; j < array20.length-1-i; j++) {
-				if (array20[j]>array20[j+1]) {
+				if (array20[j]<array20[j+1]) {
+					
 					aux=array20[j+1];
 					array20[j+1]=array20[j];
 					array20[j]=aux;

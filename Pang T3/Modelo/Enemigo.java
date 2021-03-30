@@ -15,7 +15,7 @@ public class Enemigo extends Thread{
 	private int tipo; //1 BOLA1  -  2 BOLA2  -  3 BOLA3
 	private double rebote;
 	private boolean intersectado;
-	
+
 	public Enemigo(ZonaJuego zonaJuego) {
 		this.zonaJuego = zonaJuego;
 		new Random();
@@ -26,11 +26,12 @@ public class Enemigo extends Thread{
 		//CARGAR DATOS
 		posX = 300;
 		tipo = 3;
-		
+
 	}
-	
+
 	public void run() {
 		super.run();
+
 		switch (tipo) {
 		case 1:
 			alto = 30;
@@ -57,7 +58,7 @@ public class Enemigo extends Thread{
 		default:
 			break;
 		}
-		
+
 		while(true) {
 			//COLISION LATERAL
 			posX = posX + velocidad * dirH;
@@ -66,10 +67,10 @@ public class Enemigo extends Thread{
 			}else if (posX <= 0) {
 				dirH = 1;
 			}
-				
+
 			//SISTEMA DE REBOTE
 			posY =  (int) (posY - velocidad -rebote/10);	
-				
+
 			switch (tipo) {
 			case 1:
 				if (rebote <= 0) {
@@ -98,9 +99,9 @@ public class Enemigo extends Thread{
 			default:
 				break;
 			}
-				rebote--;
+			rebote--;
 
-				
+
 			zonaJuego.repaint();
 			try {
 				Thread.sleep(10);
@@ -112,21 +113,24 @@ public class Enemigo extends Thread{
 	}
 
 	public void dibujar(Graphics g) {
-		if (tipo == 1) {
+		switch (tipo) {
+		case 1:
 			g.drawImage(imgBola1, posX, (int) posY, ancho, alto, null);
-
-		}else if (tipo == 2) {
+			break;
+		case 2:
 			g.drawImage(imgBola2, posX, (int) posY, ancho, alto, null);
-
-		}else if (tipo == 3) {
+			break;
+		case 3:
 			g.drawImage(imgBola3, posX, (int) posY, ancho, alto, null);
+			break;
 
+		default:
+			break;
 		}
-
 	}
 
-	
-	
+
+
 	//GETTERS Y SETTERS
 	public int getPosX() {
 		return posX;
@@ -199,10 +203,10 @@ public class Enemigo extends Thread{
 	public void setIntersectado(boolean intersectado) {
 		this.intersectado = intersectado;
 	}
-	
+
 	public Rectangle getBounds() {
 		return new Rectangle(posX+10, posY-10, ancho-10, alto-20);
-		
+
 	}
 
 	public int getTipo() {
